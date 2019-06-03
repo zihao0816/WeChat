@@ -1,0 +1,31 @@
+<!--pages/my/aboutus.wxml-->
+<view class='page'>
+  <view class='about-top' style='padding:32rpx 60rpx;'>
+    <image style='width:168rpx;height:170rpx;border-radius:20rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/aboutus/logo.jpg'></image>
+    <view>北京好中医用户版</view>
+    <view>版本v1.0.9</view>
+  </view>
+  <view class='about-content'>
+    <view class="weui-celles">
+      <view class="weui-cell__hd">
+        <image src="https://service.51bjhzy.com/api/StaticFile/weChatImage/aboutus/weixin@3x.png" style="margin-right: 20rpx;vertical-align: middle;width:44rpx; height: 44rpx;"></image>
+      </view>
+      <view class="weui-cell__bd">微信服务号</view>
+      <view class="weui-cell__ft">{{weChat}}</view>
+    </view>
+    <view class="weui-celles">
+      <view class="weui-cell__hd">
+        <image src="https://service.51bjhzy.com/api/StaticFile/weChatImage/aboutus/kefudianhua@3x.png" style="margin-right: 20rpx;vertical-align: middle;width:44rpx; height: 44rpx;"></image>
+      </view>
+      <view class="weui-cell__bd">客服电话</view>
+      <view class="weui-cell__ft">{{phoneNumber}}</view>
+    </view>
+    <navigator url="./aboutusdetails" class="weui-celles weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="https://service.51bjhzy.com/api/StaticFile/weChatImage/aboutus/yonghuxieyi@3x.png" style="margin-right: 20rpx;vertical-align: middle;width:36rpx; height: 46rpx;"></image>
+      </view>
+      <view class="weui-cell__bd">用户协议</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+</view>

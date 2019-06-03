@@ -1,0 +1,7 @@
+/* pages/my/preliminarydatadetails.wxss */
+.page{
+  font-size: 30rpx;
+}
+.talk{
+  margin-top: 12rpx;
+}

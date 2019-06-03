@@ -1,0 +1,22 @@
+<!--pages/my/mycoupons.wxml-->
+<view class='page'>
+  <view style='position:relative; margin-top:-30rpx'>
+    <view style='padding:30rpx;border-bottom:2rpx solid #a3a2a4;margin:0 30rpx;'></view>
+    <text style='position:absolute;left:50%;top:36rpx;background-color:#f1f0f5;padding-left:18rpx;margin-left:-122rpx;'>可使用优惠券（<text>{{num}}</text>张）</text>
+  </view>
+  <view style='margin-top:40rpx;'>
+    <block wx:for="{{couponsInfo}}" wx:for-item="item" wx:key="item">
+      <view class='c-content clearfix' bindtap="selectCoupon" data-price="{{item.price}}" data-id="{{item.id}}" data-overtime="{{item.overtime}}" data-beforeinvalidity="{{item.beforeinvalidity}}">
+        <view class='fl' style='color:#CB381B;padding:40rpx 0;width:204rpx;text-align:center;font-size:60rpx;border-right:2rpx dashed #f1f0f5;'>￥{{item.price}}</view>
+        <view class='fl' style='padding:26rpx 34rpx;'>
+          <view class='clearfix' style='margin-bottom:36rpx;'>
+            <text class='fl' style='font-size:28rpx;color:#141414;width:280rpx;margin-right:12rpx;'>{{item.couponname}}</text>
+            <text class="fr {{item.state=='3' || item.state=='4' ?'f-color':'f-colors'}}" style='font-size:28rpx;'>{{item.statetext}}</text>
+          </view>
+          <view style='font-size:24rpx;color:#818181'>有效期：{{item.startime}}～{{item.overtime}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view style='text-align:center;color:#818181'><text style='padding-right:20rpx;border-right:2rpx solid #979797;'>没有更多有效券了</text><text style='padding-left:20rpx;' bindtap='selectList'>查看无效券»</text></view>
+</view>

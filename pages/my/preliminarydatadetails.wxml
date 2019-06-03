@@ -1,0 +1,4 @@
+<!--pages/my/preliminarydatadetails.wxml-->
+<view class='page'>
+<web-view src="https://service.51bjhzy.com/wechatSubroutine/physicianVisitsDetails?orderID={{user.orderID}}&sessionID={{user.sessionID}}&isDoctor={{user.isDoctor}}"></web-view>
+</view>

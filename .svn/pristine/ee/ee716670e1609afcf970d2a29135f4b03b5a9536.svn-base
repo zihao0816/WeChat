@@ -1,0 +1,57 @@
+<!--pages/upload/two.wxml-->
+<view class='page'>
+  <view class='o-top clearfix'>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/scblh@3x.png'></image>
+      <view class='text-colors'>上传病历</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txwzd@3x.png'></image>
+      <view class='text-color'>填写主诉</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txwzdh@3x.png'></image>
+      <view class='text-colors'>填写问诊单</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/scsmzh@3x.png'></image>
+      <view class='text-colors'>上传舌照面照</view>
+    </view>
+  </view>
+  <view class='readme'>
+    <view class='r-title'>病症自述</view>
+    <view class='r-text'>
+      <textarea style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:220rpx;' maxlength='1000' placeholder='请详细描述您的病情与症状' value='{{upmod.symptom}}'  bindinput="symptomChange"></textarea>
+    </view>
+  </view>
+  <view class='readme'>
+    <view class='r-title'>身高体重</view>
+    <view class='r-text'>
+      <view class='clearfix'>
+        <label class='fl'>身高：</label><input class='fl' style='background-color:#F8F8F8;margin-bottom:32rpx;height:68rpx;margin-left:20rpx;width:82%;' type='text' disabled value='{{upmod.height}}cm'></input>
+      </view>
+      <view class='clearfix'>
+        <label class='fl'>体重：</label><input class='fl' style='background-color:#F8F8F8;margin-bottom:32rpx;height:68rpx;margin-left:20rpx;width:82%;' type='text' disabled value='{{upmod.weight}}kg'></input>
+      </view>
+    </view>
+  </view>
+  <view class='details'>
+    <view style='padding:32rpx 0;text-align:center;color:#C1C1C1;'>以下信息将帮助医生更准确的了解您的病情</view>
+    <view style='padding:0 40rpx 32rpx;'>
+      <view style='margin-bottom:32rpx;'>过敏史（选填）</view>
+      <textarea placeholder='请描述您的过敏史' style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:176rpx;' maxlength='5000' value='{{upmod.allergichistory}}'  bindinput="allergichistoryChange"></textarea>
+    </view>
+  </view>
+  <view class='details' style="padding-bottom: 80rpx;">
+    <view style='padding:32rpx 40rpx;'>
+      <view style='margin-bottom:32rpx;'>既往病史（选填）</view>
+      <textarea placeholder='请描述您的既往病史' style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:176rpx;' maxlength='5000' value='{{upmod.pastcase}}'  bindinput="pastcaseChange"></textarea>
+    </view>
+  </view>
+  <view class='next'>
+    <button class="weui-btn" type="default" bindtap='nexts'>下一步</button>
+  </view>
+</view>

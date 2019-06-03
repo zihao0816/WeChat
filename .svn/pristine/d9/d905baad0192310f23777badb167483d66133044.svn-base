@@ -1,0 +1,15 @@
+<!--pages/my/couponsList.wxml-->
+<view class='page'>
+  <block wx:for="{{couponsInfo}}" wx:for-item="item" wx:key="item">
+    <view class='c-content clearfix'>
+        <view class='fl' style='padding:40rpx 0;width:204rpx;text-align:center;font-size:60rpx;border-right:2rpx dashed #f1f0f5;'>￥{{item.price}}</view>
+        <view class='fl' style='padding:26rpx 34rpx;'>
+          <view class='clearfix' style='margin-bottom:36rpx;'>
+            <text class='fl' style='font-size:32rpx;'>{{item.couponname}}</text>
+            <text class="fr" style='font-size:28rpx;'>{{item.statetext}}</text>
+          </view>
+          <view style='font-size:24rpx;'>有效期：{{item.startime}}～{{item.overtime}}</view>
+        </view>
+      </view>
+  </block>
+</view>

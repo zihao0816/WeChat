@@ -1,0 +1,30 @@
+/* pages/my/newmyprofiletwo.wxss */
+.profile{
+  background: #ffffff;
+}
+.profile .toast{
+  background:#FEEACD;
+  padding:32rpx 40rpx;
+  color: #BA8A48;
+  font-size: 26rpx;
+}
+.profile .user-img{
+  text-align: center;
+  margin: 44rpx 0;
+}
+.profile .user-img image{
+  border-radius: 50%;
+}
+.profile .user-form {
+  /* margin-top: 88rpx; */
+}
+.weui-flex {
+  padding: 32rpx 40rpx;
+  border-bottom: 2rpx solid #f1f0f5;
+  background-color: #fff;
+  align-items: center;
+}
+
+.weui-flex__item {
+  text-indent: 10rpx;
+}

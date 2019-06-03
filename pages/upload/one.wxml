@@ -1,0 +1,49 @@
+<!--pages/upload/one.wxml-->
+<view class='page'>
+  <view class='o-top clearfix'>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/Group7Copy@3x.png'></image>
+      <view class='text-color'>上传病历</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txzsh@3x.png'></image>
+      <view class='text-colors'>填写主诉</view>
+    </view>
+    <view class='fl borders' ></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txwzdh@3x.png'></image>
+      <view class='text-colors'>填写问诊单</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/scsmzh@3x.png'></image>
+      <view class='text-colors'>上传舌照面照</view>
+    </view>
+  </view>
+  <view class='o-message'>
+    <view style='position:absolute;right:12rpx;top:12rpx;' bindtap='myfiles'>
+      <image style='width:40rpx;height:40rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/bj@3x.png' ></image>
+    </view>
+    <image style='width:124rpx;height:124rpx;border-radius:50%;margin-bottom:20rpx;' src='{{weixin.headphoto}}' ></image>
+    <view><text style='margin-right:44rpx;'>{{weixin.patientname}}</text><text style='margin-right:44rpx;'>{{weixin.sex==1?"男":"女"}}</text><text>{{weixin.age}}岁</text></view>
+  </view>
+  <view class='o-picture'>
+    <view class='op-one'>请上传您的病历图片</view>
+    <view class='op-two'>
+      <view style='display:inline-block'>
+        <image wx:for="{{upmod.ingurl}}" wx:for-index="index" wx:key="index" class="{{index%3==2?'maralls':'marall'}}" style='width:180rpx;height:180rpx;position:relative;padding-top:32rpx;' src='{{upmod.ingurl[index]}}'  data-fileurl='{{upmod.ingurl[index]}}' bindtap='seephoto'>
+          <image class="{{index%3==2?'posize':'posizes'}}" style='width:36rpx;height:36rpx;position:absolute;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/-@3x.png' data-filename='{{upmod.addedCase[index]}}'  catchtap='delimage'></image>
+        </image>
+          <image hidden='{{isshow}}' style='height:180rpx;width:180rpx;padding-top:32rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/tjtp@3x.png' catchtap='upimage'></image>
+      </view>
+    </view>
+  </view>
+  <view class='next' wx:if='{{isshows}}'>
+    <button class="weui-btn" type="default" bindtap='nexts'>下一步</button>
+  </view>
+  <view class='next' wx:else>
+    <button class='weui-btn' type='default' style='width:30%;display:inline-block;border-radius:16rpx;margin:0 76rpx;font-size:30rpx;' bindtap='next'>跳过</button>
+    <button class="weui-btn" type="default" style='width:30%;display:inline-block;border-radius:16rpx;margin:0 70rpx;font-size:30rpx;' bindtap='nexts'>下一步</button>
+  </view>
+</view>

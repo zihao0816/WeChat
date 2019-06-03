@@ -1,0 +1,49 @@
+<!--pages/my/newmyprofiletwo.wxml-->
+<view class='profile'>
+  <view class='toast'>请填写真实信息，根据国家相关规定，就诊需实名制</view>
+  <view class='user-img'>
+    <view style='width:200rpx;height:200rpx;margin:auto;position:relative;'>
+      <image style='width:100%;height:100%;' src='{{weixin.newheadphoto}}'></image>
+      <view bindtap='choosephoto' style='position:absolute;top:0;background-color:rgba(0,0,0,0.2);width:200rpx;height:200rpx;border-radius:50%;'>
+        <image style='width:48rpx;margin-top:44rpx;' mode='widthFix' src='../../imgs/adds.png'></image>
+        <view>上传照片</view>
+      </view>
+    </view>
+  </view>
+  <view class='page__bd page__bd_spacing user-form'>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>真实姓名</text>
+      <view class='weui-flex__item' style='margin-left:60rpx;'>
+        <input type='text' value='{{weixin.patientname}}' placeholder-class="place-holder" data-inputname="phonenum" bindinput='inputchange' placeholder='请填写真实姓名' />
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>性&emsp;&emsp;别</text>
+      <view class='weui-flex__item' style='margin-left:48rpx;'>
+        <picker class='fl' style='width:100%;' value="{{sexindex}}" range="{{sexList}}" bindchange="bindSexChange">
+          <view class="picker fl">{{sexList[sexindex]}}</view>
+          <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image>
+        </picker>
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>身份证号</text>
+      <view class='weui-flex__item' style='margin-left:60rpx;'>
+        <input type='number' placeholder-class="place-holder" value='{{weixin.idnumber}}' data-inputname="phonenum" bindinput='inputcardchange' placeholder='请输入身份证号' />
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>关&emsp;&emsp;系</text>
+      <view class='weui-flex__item' style='margin-left:48rpx;'>
+        <picker class='fl' style='width:100%;' value="{{reindex}}" range="{{relation}}" bindchange="bindRelationChange">
+          <view class="picker fl">{{relation[reindex]}}</view>
+          <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image>
+        </picker>
+      </view>
+    </view>
+    <view style='color:#C1C1C1;padding-top:60rpx;text-align:center;font-size:28rpx;background:#F1F0F5;'>请填写真实信息，以便医生更好的诊断病情！</view>
+    <view style='position:absolute;bottom:0;width:100%;'>
+      <button style='color:#ffffff;background:#D74326;border-radius:0;' bindtap='finish'>完成</button>
+    </view>
+  </view>
+</view>

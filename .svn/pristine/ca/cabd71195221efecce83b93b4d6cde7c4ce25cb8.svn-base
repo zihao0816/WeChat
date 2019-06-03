@@ -1,0 +1,83 @@
+<!--pages/user/order.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tabs">
+      <view class="weui-navbar b-color">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="payone" hidden="{{activeIndex != 0}}">
+          <view class="paynone" wx:if='{{noPay == null || noPay == ""}}'>
+            <image class='img' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/wnr@3x.png'></image>
+            <view>
+              <text>暂时没有内容呀~</text>
+            </view>
+          </view>
+          <block wx:for="{{noPay}}" wx:for-item="item" wx:key="index">
+            <view class='no-pay' data-service='{{item.serviceid}}' data-oid='{{item.id}}' bindtap='orderpage'>
+              <view class='clearfix orderids'>
+                <view class='fl'>
+                  <label>订单号：</label>
+                  <text>{{item.ordercode}}</text>
+                </view>
+                <view class='fr' style='color:#d74326'>{{item.paystatetext}}</view>
+              </view>
+              <view class='clearfix same'>
+                <label class='fl label-color'>问诊医生：</label>
+                <view class='fr'>{{item.doctorname}}</view>
+              </view>
+              <view class='clearfix same'>
+                <view class='fl label-color'>{{item.servicetext}}</view>
+                <view class='fr'>￥{{item.totalprice}}</view>
+              </view>
+              <view class='clearfix same'>
+                <view class='fl label-color'>下单时间：</view>
+                <view class='fr'>{{item.buytime}}</view>
+              </view>
+            </view>
+          </block>
+        </view>
+        <view class="pay" hidden="{{activeIndex != 1}}">
+        <view class="paynone" wx:if='{{noPay == null || noPay == "" }}'>
+            <image class='img' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/wnr@3x.png'></image>
+            <view>
+              <text>暂时没有内容呀~</text>
+            </view>
+          </view>
+          <block wx:for="{{noPay}}" wx:for-item="item" wx:key="index">
+            <view class='no-pay' data-service='{{item.serviceid}}' data-oid='{{item.id}}' bindtap='orderpage'>
+              <view class='clearfix orderids'>
+                <view class="fl {{item.paystate =='3' || item.orderstate =='4'?'label-color':''}}">
+                  <label>订单号：</label>
+                  <text>{{item.ordercode}}</text>
+                </view>
+                <view class="fr {{item.paystate == '1' && item.orderstate != '4'?'label-colord':(item.paystate == '2'?'':(item.paystate == '3'?'label-color':(item.orderstate == '4'?'label-color':'')))}}">{{item.paystatetext}}</view>
+              </view>
+              <view class='clearfix same'>
+                <view class='fl label-color'>问诊医生：</view>
+                <view class="fr {{(item.paystate == '1' && item.orderstate != '4') || item.paystate == '2'?'':'label-color'}}">{{item.doctorname}}</view>
+              </view>
+              <view class='clearfix same'>
+                <view class='fl label-color'>{{item.servicetext}}</view>
+                <view class="fr {{(item.paystate == '1' && item.orderstate != '4') || item.paystate == '2'?'':'label-color'}}">￥{{item.totalprice}}</view>
+              </view>
+              <view class='clearfix same'>
+                <view class='fl label-color'>下单时间：</view>
+                <view class="fr {{(item.paystate == '1' && item.orderstate != '4') || item.paystate == '2'?'':'label-color'}}">{{item.buytime}}</view>
+              </view>
+              <view class='clearfix same' hidden="{{item.paystate !='2'}}">
+                <view class='fl label-color'>支付时间：</view>
+                <view class='fr'>{{item.paytime}}</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

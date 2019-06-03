@@ -1,0 +1,2 @@
+<!--pages/my/medicalrecorddetails.wxml-->
+<web-view src='https://service.51bjhzy.com/wechatSubroutine/completeMedicalRecordDetails?orderId={{user.orderId}}&sessionId={{user.sessionId}}'></web-view>

@@ -1,0 +1,44 @@
+<!--pages/my/index.wxml-->
+<view class='page'>
+  <view class='p-top'>
+    <image src='{{user.img}}' bindtap="myfiles"></image>
+    <view style='color:#ffffff;font-size:32rpx;'>{{user.name==null||user.name==""?"绑定手机号":user.name}}</view>
+  </view>
+  <view class=""> 
+    <navigator url="./myorder" class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wddd@2x.png'></image>
+      <view class="weui-cell__bd fontsize">我的订单</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="./mydoctor" class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wdys@2x.png'></image>
+      <view class="weui-cell__bd fontsize">我的医生</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="./mymedicalrecords" class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wdbl@2x.png'></image>
+      <view class="weui-cell__bd fontsize">我的病历</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="./mycoupons" class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wdyhq@2x.png'></image>
+      <view class="weui-cell__bd fontsize">我的优惠券</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="./aboutus" class="weui-celld weui-cell_access m-top" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/guanyuwomen@2x.png'></image>
+      <view class="weui-cell__bd fontsize">关于我们</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <view bindtap='contactService' class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/kfdh@2x.png'></image>
+      <view class="weui-cell__bd fontsize">联系客服</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <navigator url="../problemfeedback/index" class="weui-celld weui-cell_access" hover-class="weui-cell_active">
+      <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wentifankui@2x.png'></image>
+      <view class="weui-cell__bd fontsize">问题反馈</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+   </view> 
+</view>

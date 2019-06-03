@@ -1,0 +1,65 @@
+/* pages/user/mydoctor.wxss */
+page{
+  background-color: #f1f0f5
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.b-color{
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+}
+.no-pays{
+  background-color: #ffffff;
+  margin-bottom: 12rpx;
+}
+.no-pays .n-top{
+    padding: 32rpx 0 0 40rpx;
+}
+.weui-tab__content{
+    padding-top: 60px;
+    text-align: center;
+}
+.imgurl{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8%;
+}
+.weui-navbar__slider{
+  background-color: #d74326;
+}
+.weui-navbar__item.weui-bar__item_on{
+  color: #d74326;
+}
+.payone,.pay{
+  margin-top: 12rpx;
+}
+
+.tagboard{
+  height: 100rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.messages{
+  width: 76%;
+}
+.messages view{
+  margin-bottom: 18rpx;
+}
+.paynone{
+  font-family: PingFang-SC-Regular;
+  font-size: 32rpx;
+  text-align: center;
+  padding-top:40%; 
+  color: #C1C1C1; 
+}
+.img{
+    width:380rpx;
+    height:376px;
+    padding-bottom: 20px;
+}

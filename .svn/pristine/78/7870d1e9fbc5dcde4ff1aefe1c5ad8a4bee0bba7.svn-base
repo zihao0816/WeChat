@@ -1,0 +1,3 @@
+<!--pages/doctor/doctordetails.wxml-->
+<import src="../../template/mymedicalrecords.wxml"/>
+<template is="mymedicalrecords" data="{{medicalrecordInfo}}"></template>

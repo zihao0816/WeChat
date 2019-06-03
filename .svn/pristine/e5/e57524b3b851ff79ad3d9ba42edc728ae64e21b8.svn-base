@@ -1,0 +1,40 @@
+/* pages/my/index.wxss */
+page{
+  background-color: #f1f0f5
+}
+.fontsize{
+  font-size: 30rpx;
+}
+.page .p-top{
+  text-align: center;
+  padding: 30rpx 0;
+  background: url('https://service.51bjhzy.com/api/StaticFile/weChatImage/wdbj@3x.png') no-repeat;
+  background-size:100% 100%;  
+}
+.page .p-top image{
+  width: 122rpx;
+  height: 122rpx;
+  border-radius: 50%;
+}
+.weui-celld{
+  padding: 36rpx 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items:center;
+  align-items:center;
+  border-bottom:2rpx solid #F1F0F5;
+  background-color: #ffffff;
+}
+.weui-celld image{
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 32rpx;
+}
+.m-top{
+  margin-top: 12rpx;
+}
+a{
+  border-radius: 8rpx;
+}

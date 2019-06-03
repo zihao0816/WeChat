@@ -1,0 +1,35 @@
+<!--pages/my/addregion.wxml-->
+<view class='page'>
+  <view class='page__bd page__bd_spacing user-form'>
+    <view class='weui-flex'>
+      <text class="mar">收货人:</text>
+      <view class='weui-flex__item'>
+        <input maxlength='20' type='text' data-inputname="receiver" bindblur='inputchange' placeholder ='请输入您的姓名' value='{{upmod.receiver}}' />
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text class="mar">联系方式:</text>
+      <view class='weui-flex__item'>
+        <input class='kong' type='number' data-inputname="telephone" bindblur='inputchange' placeholder ='请输入您的联系方式' value='{{upmod.telephone}}'/>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <text class="mar" decode="{{true}}">收货地址:</text>
+      <view class='weui-flex__item'>
+          <view class='weui-flex__item' catchtap='chooseAddress'> 
+            <text>{{province}}{{city}}{{area}}</text>
+          </view>
+          <nyz_area_picker show="{{show}}" bind:sureSelectArea="sureSelectAreaListener"></nyz_area_picker>
+      </view>
+    </view>
+    <view class="" style='padding:32rpx 40rpx 50rpx;background-color:#ffffff;'>
+      <text decode="{{true}}">详细信息:</text>
+      <view class='' style='border:2rpx solid #f1f0f5;padding:16rpx 0 0 16rpx;margin-top:20rpx;'>
+        <textarea style='height:120rpx;' maxlength='50'  data-inputname="address" bindinput='inputchange' value='{{upmod.address}}'></textarea>
+      </view>
+    </view>
+    <view class='next'>
+      <button class="weui-btn" type="default" bindtap='nexts'>保存</button>
+    </view>
+  </view>
+</view>

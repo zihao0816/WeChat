@@ -1,0 +1,15 @@
+/* pages/upload/four.wxss */
+.f-picture{
+  margin-top: 12rpx;
+}
+.f-picture .fp-one{
+  background-color: #ffffff;
+  margin-bottom: 2rpx;
+  padding: 32rpx 40rpx;
+  color: #141414;
+  font-size: 32rpx;
+}
+.f-picture .fp-two{
+  background-color: #ffffff;
+  padding: 0 0 32rpx 40rpx;
+}

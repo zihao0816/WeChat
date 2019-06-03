@@ -1,0 +1,3 @@
+<!--pages/doctor/purchasingservicedetails.wxml-->
+<import src="../../template/purchasingservicedetails.wxml"/>
+<template is="purchasingservicedetails" data="{{newservice}}"></template>

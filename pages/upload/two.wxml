@@ -1,0 +1,56 @@
+<!--pages/upload/two.wxml-->
+<view class='page'>
+  <view class='add-patients' wx:if='{{isshow}}'>
+    <view style='color:#D74326;text-align:center;line-height:100rpx;' bindtap='addpatients'>
+      <image style='width:44rpx;vertical-align:middle;' mode='widthFix' src='../../imgs/add.png'></image>
+      <text style='vertical-align:middle;'>添加患者</text>
+    </view>
+  </view>
+  <view class='' style='background:#ffffff;' wx:else bindtap='addpatients'>
+    <view class="weui-cells_after-title" style='margin-top:2rpx;'>
+      <view class="weui-cell weui-cell_access" style='padding:32rpx 40rpx;'>
+        <view class="weui-cell__hd">
+          <image src="{{weixin.portrait == null || weixin.portrait == '' ? weixin.headphoto : weixin.portrait}}" style="margin-right: 28rpx;vertical-align: middle;width:108rpx;" mode='widthFix'></image>
+        </view>
+        <view class="weui-cell__bd">
+          <view>{{weixin.patientname}} {{weixin.relationship!=null?weixin.relationship:''}}</view>
+          <view style='margin-top:12rpx;'>{{weixin.sex==1?'男':'女'}}，{{weixin.age}}岁</view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </view>
+  <view class='readme'>
+    <view class='r-title'>病症自述</view>
+    <view class='r-text'>
+      <textarea style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:220rpx;' maxlength='1000' placeholder='请详细描述您的病情与症状' value='{{upmod.ordermaintellinfo.symptom}}' bindinput="symptomChange"></textarea>
+    </view>
+  </view>
+  <view class='readme'>
+    <view class='r-title'>身高体重</view>
+    <view class='r-text'>
+      <view class='clearfix'>
+        <label class='fl'>身高（cm）：</label><input class='fl' style='background-color:#F8F8F8;margin-bottom:32rpx;height:68rpx;margin-left:20rpx;width:64%;padding-left: 20rpx;' type='number' maxlength='3' bindinput='heightChange' value='{{upmod.ordermaintellinfo.height}}'></input>
+      </view>
+      <view class='clearfix'>
+        <label class='fl'>体重（kg）：</label><input class='fl' style='background-color:#F8F8F8;margin-bottom:32rpx;height:68rpx;margin-left:24rpx;width:64%;padding-left: 20rpx;' type='number' maxlength='3' bindinput='weightChange' value='{{upmod.ordermaintellinfo.weight}}'></input>
+      </view>
+    </view>
+  </view>
+  <view class='details'>
+    <view style='padding:32rpx 0;text-align:center;color:#C1C1C1;'>以下信息将帮助医生更准确的了解您的病情</view>
+    <view style='padding:0 40rpx 32rpx;'>
+      <view style='margin-bottom:32rpx;'>过敏史（选填）</view>
+      <input placeholder='请描述您的过敏史' style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:176rpx;' maxlength='5000' value='{{upmod.ordermaintellinfo.allergichistory}}' bindinput="allergichistoryChange"></input>
+    </view>
+  </view>
+  <view class='details' style="padding-bottom: 80rpx;">
+    <view style='padding:32rpx 40rpx;'>
+      <view style='margin-bottom:32rpx;'>既往病史（选填）</view>
+      <textarea placeholder='请描述您的既往病史' style='resize:none;background-color:#F8F8F8;width:94%;padding:20rpx;height:176rpx;' maxlength='5000' value='{{upmod.ordermaintellinfo.pastcase}}' bindinput="pastcaseChange"></textarea>
+    </view>
+  </view>
+  <view class='next' hidden='{{types==1}}'>
+    <button class="weui-btn" type="default" bindtap='nexts'>确认无误，发给医生</button>
+  </view>
+</view>

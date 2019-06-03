@@ -1,0 +1,80 @@
+<!--pages/user/user.wxml-->
+<view class='page'>
+  <view class='page__bd page__bd_spacing user-form'>
+    <view class='weui-flex'>
+      <text>真实姓名：</text>
+      <view class='weui-flex__item'>
+        <input class='fr' placeholder-class="place-holder" style='width:220rpx;text-align:right;' type='text' data-inputname="truename" bindblur='inputchange' placeholder='请输入您的姓名' maxlength='20' value='{{upmode.truename}}' />
+      </view>
+    </view>
+    <view class="weui-flex">
+      <text decode="{{true}}">性别：</text>
+      <view class='weui-flex__item'>
+        <radio-group class="fr" bindchange="radioChange">
+          <label class="weui-celss weui-check__label fl" wx:for="{{sexList}}" wx:for-item="items" wx:key = "items">
+            <checkbox class="weui-check" value="{{items.key}}" checked="{{items.checkeds}}" />
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:32rpx;height:32rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/my/wdx@3x.png") no-repeat;background-size:100% 100%;' wx:if="{{!items.checkeds}}"></icon>
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:32rpx;height:32rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dx@3x.png") no-repeat;background-size:100% 100%;' wx:if="{{items.checkeds}}"></icon>
+              <view class="weui-cell__bd fr">{{items.name}}</view>
+            </view>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>年龄：</text>
+      <view class='weui-flex__item'>
+        <picker class='fr' mode="date" value="{{date}}" bindchange="bindDateChange">
+          <view wx:if='{{date!=""}}' class="picker fl">{{date}}</view>
+          <view wx:else class='picker fl' style='color:#c1c1c1;'>请选择</view>
+          <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <text decode="{{true}}">省份：</text>
+      <view class='weui-flex__item' catchtap='chooseAddress'>
+        <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image>
+        <view wx:if='{{province==""}}' class='fr' style='color:#c1c1c1;'>请选择</view>
+        <view wx:elif='{{area==""&&city!=""}}' class='fr'>{{province}}-{{city}}</view>
+        <view wx:elif='{{city==""}}' class='fr'>{{province}}</view>
+        <view wx:else class='fr'>{{province}}-{{city}}-{{area}}</view>
+      </view>
+      <nyz_area_picker show="{{show}}" bind:sureSelectArea="sureSelectAreaListener"></nyz_area_picker>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>身高：</text>
+      <view class='weui-flex__item' style='position:relative;'>
+        <input type='number' maxlength='5' placeholder-class="place-holder" class='fr' style='width:220rpx;text-align:center;' data-inputname="height" bindinput='inputchange' placeholder='请输入您的身高' value='{{upmode.height}}' />
+        <text style='position:absolute;right:0;top:0;' hidden='{{upmode.height==null || upmode.height==""}}'>cm</text>
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>体重：</text>
+      <view class='weui-flex__item' style='position:relative;'>
+        <input type='number' maxlength='5' placeholder-class="place-holder" class='fr' style='width:220rpx;text-align:center;' data-inputname="weight" bindinput='inputchange' placeholder='请输入您的体重' value='{{upmode.weight}}' />
+        <text style='position:absolute;right:0;top:0;' hidden='{{upmode.weight==null || upmode.weight==""}}'>kg</text>
+      </view>
+    </view>
+    <view class='weui-flex' hidden='{{yzshow}}'>
+      <text decode='{{true}}'>手机号：</text>
+      <view class='weui-flex__item'>
+        <input type='number' placeholder-class="place-holder" class='fr' style='width:220rpx;text-align:right;' data-inputname="phonenum" bindinput='inputchange' placeholder='请填写手机号' />
+      </view>
+    </view>
+    <view class='weui-flex' hidden='{{yzshow}}'>
+      <text decode='{{true}}'>验证码：</text>
+      <view class='weui-flex__item'>
+        <input type='number' style='text-align:center;' placeholder-class="place-holder" data-inputname="yancode" bindinput='inputchange' placeholder='请输入验证码' />
+      </view>
+      <view class='weui-flex__item'>
+        <button class='fr {{color?"oldcolor":"newcolor"}}' style='background:none;font-size:30rpx;padding:0;' bindtap='yancode' id="getauth" disabled='{{getauthdisabled}}'>{{getauthtext}}</button>
+      </view>
+    </view>
+    <view class='title' style='margin-left:20rpx'>请填写真实信息，以便医生更好的诊断病情！</view>
+    <view class='next'>
+      <button class="weui-btn" type="default" bindtap="next">保存</button>
+    </view>
+  </view>
+</view>

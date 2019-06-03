@@ -1,0 +1,440 @@
+// pages/makemedicine/makemedicinedetails.js
+var wxRequest = require('../../utils/wxRequest.js');
+var util = require('../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    itepatientaddressinfoms: [],
+    startX: 0, //开始坐标
+    startY: 0,
+    taboo: '',
+    disabled: false
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    if(options!=null){
+      this.data.options = options;
+    }
+    this.query(this, this.data.options.mid);
+    
+    app.globalData.zhixin = { type: 2, val: this, dosome: this.onLoad }
+    this.query(this, this.data.options.mid);
+    // this.patientaddressinfoquey(this);
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    
+    var coupon = wx.getStorageSync("coupon");
+    if (coupon != null && coupon != "") {
+      wx.removeStorageSync("coupon");
+      this.data.makeInfo.orderprescriptioninfos[0].saleprice = coupon.price;
+      this.data.makeInfo.orderprescriptioninfos[0].actualprice = this.data.makeInfo.orderprescriptioninfos[0].totalprice * 1 - coupon.price * 1;
+      this.data.makeInfo.orderprescriptioninfos[0].actualprice = this.data.makeInfo.orderprescriptioninfos[0].actualprice < 0 ? 0 : this.data.makeInfo.orderprescriptioninfos[0].actualprice;
+      this.data.makeInfo.orderprescriptioninfos[0].actualprice = this.data.makeInfo.orderprescriptioninfos[0].actualprice.toFixed(2);
+      this.data.makeInfo.orderprescriptioninfos[0].couponid = coupon.id;
+      this.setData(this.data)
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+
+  jumpadd: function() {
+    wx.navigateTo({
+      url: '../my/addregion',
+    })
+  },
+  patientaddressinfoquey: function(_this) {
+    var weixin = wx.getStorageSync("weixin");
+    while (_this.data.paystate == null) {
+      return
+    }
+    _this.data.addressinfoid == null;
+    if (this.data.paystate != '1') {
+      this.data.yzshow = true;
+      _this.data.patientaddressinfo = [];
+      if (_this.data.makeInfo.orderprescriptioninfos[0].address != null) {
+        _this.data.patientaddressinfo = [];//清空地址列表
+        _this.data.patientaddressinfo.push({
+          receiver: _this.data.makeInfo.orderprescriptioninfos[0].address.split("$")[1],
+          province: _this.data.makeInfo.orderprescriptioninfos[0].address.split("$")[0],
+          telephone: _this.data.makeInfo.orderprescriptioninfos[0].telephone,
+          isdefault: 1
+        })
+      }
+      _this.setData(_this.data);
+
+    } else {
+      wxRequest.requests("patientaddressinfo/getListByKey", JSON.stringify({
+        patientid: weixin.id
+      }), function(res) {
+        if (res.length >= 2) {
+          _this.data.yzshow = true;
+        } else {
+          _this.data.yzshow = false;
+          if (res.length == 1 && res[0].isdefault == '2') {
+            wxRequest.requests("patientaddressinfo/updateByPrimaryKeySelective", JSON.stringify({
+              isdefault: 1,
+              id: res[0].id
+            }), function(res) {
+              _this.patientaddressinfoquey(_this);
+            })
+            return
+          }
+        }
+        _this.data.patientaddressinfo = res;
+        for (var i = 0; i < _this.data.patientaddressinfo.length; i++) {
+          _this.data.patientaddressinfo[i].isTouchMove = false;
+        }
+        for (var i = 0; i < res.length; i++) {
+          if (res[i].isdefault == '1') {
+            _this.data.addressinfoid = res[i].id;
+          }
+        }
+        _this.setData(_this.data);
+      })
+    }
+  },
+  query: function(_this, mid) {
+    var data = {
+      getDoctor: 1,
+      getPrescriptionOrder: 1,
+      prescriptionOrderId: mid
+    }
+    wxRequest.requests('Inquiry/orderDetails', JSON.stringify(data), function(res) {
+      var newtime = res.orderprescriptioninfos[0].servicetime * 60 * 60 * 1000 + res.orderprescriptioninfos[0].buytime,
+        canceling = '',
+        oldtime = new Date(),
+        lasttime = newtime - oldtime.getTime(),
+        hours = parseInt((lasttime / (1000 * 60 * 60))),
+        minutes = parseInt((parseFloat(lasttime / (1000 * 60 * 60)) - parseInt(lasttime / (1000 * 60 * 60))) * 60),
+        imgurl = '',
+        text = '',
+        iconurl = '',
+        time = '',
+        img = wx.getStorageSync("common")
+      if (res.orderprescriptioninfos[0].paystate == '1') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/ddxqbj@3x.png'
+        text = '等待支付'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/szmx@3x.png'
+        if (hours < 1) {
+          time = '剩' + minutes + '分钟自动取消'
+        } else { 
+          time = '剩' + hours + '小时' + minutes + '分钟自动取消'
+        }
+      } else if (res.orderprescriptioninfos[0].paystate == '2') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/ddxqbj@3x.png'
+        text = '支付已完成'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zfywc@3x.png'
+      } else if (res.orderprescriptioninfos[0].paystate == '3') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/yzdqxbj@3x.png'
+        text = '已自动取消'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zdqx@3x.png'
+      }
+      _this.setData({
+        imgurl: imgurl,
+        text: text,
+        iconurl: iconurl,
+        time: time,
+        canceling: util.timestampToTime(newtime, 1)
+      })
+
+      res.doctor.doctorFace = img.fastDfsUrl + res.doctor.doctorFace;
+      res.orderprescriptioninfos[0].buytime = util.timestampToTime(res.orderprescriptioninfos[0].buytime, 1);
+      res.orderprescriptioninfos[0].paytime = util.timestampToTime(res.orderprescriptioninfos[0].paytime, 1);
+
+      if (res.orderprescriptioninfos[0].taboo == null || res.orderprescriptioninfos[0].taboo == '') {
+        res.orderprescriptioninfos[0].taboo = '无'
+      } else {
+        res.orderprescriptioninfos[0].taboo = res.orderprescriptioninfos[0].taboo.replace(/,/g, '，');
+      }
+
+      res.orderprescriptioninfos[0].actualprice = res.orderprescriptioninfos[0].actualprice == null ? res.orderprescriptioninfos[0].totalprice : res.orderprescriptioninfos[0].actualprice;
+      _this.setData({
+        makeInfo: res,
+        paystate: res.orderprescriptioninfos[0].paystate,
+        zhifushow: !(res.orderprescriptioninfos[0].paystate == '1')
+      })
+      _this.patientaddressinfoquey(_this);
+    })
+  },
+  addressdefault: function(e) {
+    var _this = this;
+    if (e.currentTarget.dataset.addressid != null) {
+      wxRequest.requests('Personal/setDefaultAddress', JSON.stringify({
+        addressid: e.currentTarget.dataset.addressid,
+        patientid: wx.getStorageSync("weixin").id
+      }), function(res) {
+        _this.patientaddressinfoquey(_this);
+      })
+    }
+  },
+  contactService: function() {
+    wx.getStorage({
+      key: 'common',
+      success: function(res) {
+        wx.makePhoneCall({
+          phoneNumber: res.data.serviceTel,
+          success: function() {
+            console.log('成功')
+          },
+          fail: function() {
+            console.log('失败')
+          }
+        })
+      }
+    })
+  },
+  paypay: function() {
+    var _this = this;
+    if (this.data.disabled) {
+      return
+    }
+    this.data.disabled = true;
+    
+    this.setData({
+      disabled: true
+    })
+    setTimeout(function(){
+      this.data.disabled = false;
+
+      this.setData({
+        disabled: false
+      })
+    },5000)
+    if (this.data.paystate == '1') {
+      var _this = this;
+      var url = 'weixinpay/sendWeiPayRequest?ordercode=' + _this.data.makeInfo.orderprescriptioninfos[0].orderid + "&openid=" + wx.getStorageSync("weixin").miniopenid;
+      if (_this.data.makeInfo.orderprescriptioninfos[0].couponid != null && _this.data.makeInfo.orderprescriptioninfos[0].couponid != "") {
+        url += "&kfc=" + _this.data.makeInfo.orderprescriptioninfos[0].couponid;
+      }
+      if (_this.data.addressinfoid == null || _this.data.addressinfoid == "") {
+        wx.showToast({
+          title: "请选择收货地址",
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      url += "&addressId=" + _this.data.addressinfoid;
+      wxRequest.requests(url, null, null, null, null, function(val) {
+        if (val.return_code == "SUCCESS") {
+          var dosuccess = function() {
+            _this.onLoad()
+          }
+          if (val.totalfee == 0) {
+            dosuccess()
+          } else {
+            wx.requestPayment({
+              'appId': val.weiAppLetEntity.appId,
+              'timeStamp': val.weiAppLetEntity.timeStamp,
+              'nonceStr': val.weiAppLetEntity.nonceStr,
+              'package': val.weiAppLetEntity.package,
+              'signType': val.weiAppLetEntity.signType,
+              'paySign': val.weiAppLetEntity.paySign,
+              'success': function(res) {
+                setTimeout(function(){
+                  dosuccess()
+                },500)
+              },
+              'fail': function(res) {
+              
+                if (res.errMsg != null && res.errMsg == "requestPayment:fail cancel") {
+                  _this.onLoad({
+                    mid: _this.data.makeInfo.orderprescriptioninfos[0].id
+                  })
+                } else if (res.err_desc != null && res.err_desc != "") {
+                  wx.showToast({
+                    title: res.err_desc,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+              },
+              'complete': function(res) {
+                setTimeout(function () {
+                  _this.setData({
+                    disabled: false
+                  })
+                }, 500)
+                 
+                console.log("complete" + JSON.stringify(res))
+              }
+            })
+          }
+        }else{console.log('else')}
+        if (val.return_code == "FAIL") {
+          wx.showToast({
+            title: val.return_msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
+
+    // wx.requestPayment({
+    //   'timeStamp': '',
+    //   'nonceStr': '',
+    //   'package': '',
+    //   'signType': 'MD5',
+    //   'paySign': '',
+    //   'success': function (res) {
+    //   },
+    //   'fail': function (res) {
+    //   }
+    // })
+  },
+
+
+  //手指触摸动作开始 记录起点X坐标
+  touchstart: function(e) {
+    if (this.data.paystate != '1') {
+      return
+    }
+    //开始触摸时 重置所有删除
+    this.data.patientaddressinfo.forEach(function(v, i) {
+      if (v.isTouchMove) //只操作为true的
+        v.isTouchMove = false;
+    })
+    this.setData({
+      startX: e.changedTouches[0].clientX,
+      startY: e.changedTouches[0].clientY,
+      patientaddressinfo: this.data.patientaddressinfo,
+    })
+  },
+
+  //滑动事件处理
+  touchmove: function(e) {
+    if (this.data.paystate != '1') {
+      return
+    }
+    var that = this,
+      index = e.currentTarget.dataset.index, //当前索引
+      startX = that.data.startX, //开始X坐标
+      startY = that.data.startY, //开始Y坐标
+      touchMoveX = e.changedTouches[0].clientX, //滑动变化坐标
+      touchMoveY = e.changedTouches[0].clientY, //滑动变化坐标
+      //获取滑动角度
+      angle = that.angle({
+        X: startX,
+        Y: startY
+      }, {
+        X: touchMoveX,
+        Y: touchMoveY
+      });
+    that.data.patientaddressinfo.forEach(function(v, i) {
+      v.isTouchMove = false
+      //滑动超过30度角 return
+      if (Math.abs(angle) > 30) return;
+      if (i == index) {
+        if (touchMoveX > startX) //右滑
+          v.isTouchMove = false
+        else //左滑
+          v.isTouchMove = true
+      }
+    })
+    //更新数据
+    that.setData({
+      patientaddressinfo: that.data.patientaddressinfo
+    })
+  },
+  /**
+   * 计算滑动角度
+   * @param {Object} start 起点坐标
+   * @param {Object} end 终点坐标
+   */
+  angle: function(start, end) {
+    var _X = end.X - start.X,
+      _Y = end.Y - start.Y
+    //返回角度 /Math.atan()返回数字的反正切值
+    return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
+  },
+  del: function(e) {
+    var _this = this;
+    if (e.target.dataset.addressid != null) {
+      wxRequest.requests('patientaddressinfo/delete', JSON.stringify([e.target.dataset.addressid]), function(res) {
+        _this.setData({
+          addressinfoid: null
+        })
+        _this.patientaddressinfoquey(_this);
+      })
+    }
+
+    // wx.setNavigationBarTitle({
+    //   title:"ddsgfd"
+    // })
+  },
+  up: function(e) {
+    var _this = this;
+    for (var i = 0; i < _this.data.patientaddressinfo.length; i++) {
+      if (_this.data.patientaddressinfo[i].id == e.target.dataset.addressid) {
+        wx.setStorageSync("upmod", _this.data.patientaddressinfo[i]);
+        wx.navigateTo({
+          url: '../my/addregion',
+        })
+      }
+    }
+
+  },
+  mycoupons: function(e) {
+    if (this.data.paystate != '1') {
+      return
+    }
+    if (this.data.makeInfo.orderprescriptioninfos[0].saletype != null && this.data.makeInfo.orderprescriptioninfos[0].saletype != "") {
+      return
+    }
+    wx.navigateTo({
+      url: '../my/mycoupons?yhj=1',
+    })
+  }
+})

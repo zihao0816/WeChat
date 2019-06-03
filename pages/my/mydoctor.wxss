@@ -1,0 +1,40 @@
+/* pages/user/mydoctor.wxss */
+page{
+  background-color: #f1f0f5
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.shuffle,.shuffles{
+  width: 100%;
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #f1f0f5;
+  background-color: #ffffff;
+}
+.shuffle .imgurl,.shuffles .imgurl{
+  width: 188rpx;height: 188rpx;border-radius: 8rpx;margin: 0 30rpx;overflow: hidden;
+}
+.shuffle image,.shuffles image{
+  width: 100%;height: 100%;border-radius: 8rpx;
+}
+.msgdoctor{
+  width: 76%;
+}
+.tagboard{
+  color:#818181;
+  font-size: 26rpx;
+  overflow: hidden;
+  white-space:nowrap; 
+  text-overflow:ellipsis;
+}
+.yirenzheng{
+  background-image: url(https://service.51bjhzy.com/api/StaticFile/weChatImage/my/yirenzheng@3x.png);
+  background-size: 102rpx 40rpx;
+  height: 40rpx;
+  width: 102rpx;
+  margin-right:40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+}

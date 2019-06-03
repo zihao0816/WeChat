@@ -1,0 +1,68 @@
+<!--pages/user/mydoctor.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="payone" hidden="{{activeIndex != 0}}">
+      <view class="paynone" wx:if='{{alldoctor == null || alldoctor == "" }}'>
+        <image class='img' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/wnr@3x.png'></image>
+        <view>
+          <text>暂时没有内容呀~</text>
+        </view>
+      </view>
+      <!-- <block wx:for="{{alldoctor}}" wx:for-item="item" wx:key="index"> 
+        <view class='no-pays' data-did='{{item.id}}' data-state='1' bindtap='newPage'>
+          <view class='n-top clearfix'>
+            <view class='fl' style='margin-right:20rpx'>
+              <image bindtap='seephoto' class='imgurl' src='{{item.headphoto}}'></image>
+            </view>
+            <view class='fl messages'>
+              <view>
+                <text decode="{{true}}">{{item.doctorname}}&ensp;·&ensp;{{item.duties}}</text>
+              </view>
+              <view style='font-size:28rpx;color:#818181;'>{{item.hospitaname}}</view>
+              <view class="tagboard"> -->
+                <!-- <block wx:for="{{item.skillname}}" wx:for-item="item" wx:key="index"> -->
+                <!-- <view class='subject'>{{item.skillname}}</view> -->
+                <!-- </block> -->
+              <!-- </view>
+            </view>
+          </view>
+          <view class='clearfix' style='padding:32rpx 0;border-top:2rpx solid #F1F0F5;cofont-sizelor:28rpx;'>
+            <view class='fl' style='width:49%;text-align:center;border-right:2rpx solid #F1F0F5'>
+              <text>图文：<text wx:if='{{item.itagainisopen>0}}'>￥{{item.imageTextPrice}}/次</text>
+              <text wx:else>未开通</text></text>
+            </view>
+            <view class='fl' style='width:49%;text-align:center'>
+              <text>电话：<text wx:if='{{item.thagainisopen>0}}'>￥{{item.phonePrice}}/次</text>
+              <text wx:else>未开通</text></text>
+            </view>
+          </view>
+        </view> -->
+      <!-- </block> -->
+    <view style='position:relative;'>
+      <view wx:for='{{alldoctor}}' wx:for-item='item' wx:key='index'>
+        <view data-did='{{item.id}}' data-state='1' bindtap="newPage">
+          <view class='shuffles' style="margin-top:12rpx;">
+            <view style='display:flex;'>
+              <view class='imgurl'>
+                <image src='{{item.headphoto}}'></image>
+              </view>
+              <view class='smallwidth'>
+                <view style='font-weight:bold;font-size:34rpx;'>
+                  <text decode='{{true}}'>{{item.doctorname}}&ensp;·&ensp;{{item.duties}}</text>
+                </view>
+                <view class="tagboard">{{item.hospitaname}}</view>
+                <view class="tagboard">擅长：{{item.skillname}}</view>
+                <view style='color:#D74326;font-size:26rpx;margin-top:10rpx;'>
+                  <text class='fl'>￥{{item.phonePrice}}/次</text>
+                  <view class='fr yirenzheng'>已认证</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </view>
+
+  </view>
+</view>

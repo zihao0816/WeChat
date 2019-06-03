@@ -1,0 +1,118 @@
+<!-- pages/physicianvisits/physicianvisitsList.wxml -->
+<view class="page  {{doctoralldata == null || doctoralldata == '' || doctoralldata.length == 1 ? 'doctoralldata' : ''}}">
+  <!--<view class='my-doctor' hidden='{{doctordata==null|| doctordata == ""}}'>
+    <view class='d-title'>我的复诊医生</view>
+    <swiper class='clearfix' style='height:430rpx' indicator-dots indicator-color="rgba(0, 0, 0, .2) " indicator-active-color="#D74326" circular>
+      <swiper-item class='warp clearfix item' data-did='{{item.id}}' data-state='1' bindtap='alldoctor' wx:for='{{doctordata}}' wx:for-item='item' wx:key='index'>
+        <view class='shuffle' >
+          <view class='clearfix'>
+            <view class='fl imgurl'>
+              <image src='{{item.headphoto}}'></image>
+            </view>
+            <view class='fl smallwidth'>
+              <view style='margin-bottom:30rpx;'>
+                <text decode='{{true}}'>{{item.doctorname}}&ensp;·&ensp;{{item.duties}}</text>
+              </view>
+              <view style='margin-bottom:30rpx;color:#898989;'>{{item.hospitaname}}</view>
+              <view class='tagboard'>
+                <text class="subject">{{item.skillname}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='jump' style='border-top: 2rpx solid #f1f0f5;'>
+            <view style='border-right: 2rpx solid #f1f0f5;'>
+              <text>图文：<text wx:if='{{item.itagainisopen>0}}'>￥{{item.imageTextPrice}}/次</text><text wx:else>未开通</text></text>
+            </view>
+            <view>
+              <text>电话：<text wx:if='{{item.thagainisopen>0}}'>￥{{item.phonePrice}}/次</text><text wx:else>未开通</text></text>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>-->
+  <view class="all-doctor">
+    <!-- <view class='a-title'>全部医生</view> -->
+    <view class="a-search {{Stick? 'searchall' : ''}}">
+      <view class="nav" style='position:relative;'>
+        <view class="nav-son  {{shownavindex == 1? 'active' : ''}}" bindtap="hospitalList" data-nav="1">
+          <text class="contents">{{hospit}}</text>
+          <view class="icon"></view>
+        </view>
+        <view class="nav-son borderss {{shownavindex == 2? 'active' : ''}}" bindtap="departmentList" data-nav="2">
+          <view class="contents">{{derpartments}}</view>
+          <view class="icon"></view>
+        </view>
+        <view class="nav-son {{shownavindex == 3? 'active' : ''}}" bindtap="typeList" data-nav="3">
+          <view class="contents">{{inquiry}}</view>
+          <view class="icon"></view>
+        </view>
+        <view style='top:{{titleHeights}}' class="temp temp1 {{qyopen ? 'slidown' : 'slidup'}} {{qyshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:key="item" wx:for-item="item" data-valtype="hospitaid" data-types='hospit' data-value='{{item.hospitaname}}' data-val="{{item.id}}" bindtap="querybykey">
+            {{item.hospitaname}}
+          </view>
+        </view>
+        <view style='top:{{titleHeights}}' class="temp temp2 {{nzopen ? 'slidown' : 'slidup'}} {{nzshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:for-item="item" wx:key="item" data-valtype="department" data-types='derpartments' data-value='{{item.itemname}}' data-val="{{item.itemcode}}" bindtap="querybykey">
+            {{item.itemname}}
+          </view>
+        </view>
+        <!-- class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}" -->
+        <view style='top:{{titleHeights}}' class="temp temp2 {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:for-item="item" wx:key="key" data-valtype="openservice" data-types='inquiry' data-value='{{item.name}}' data-val="{{item.id}}" bindtap="querybykey">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view style='position:relative;'>
+      <view wx:for='{{doctordata}}' wx:for-item='item' wx:key='index'>
+        <view data-did='{{item.id}}' data-state='1' bindtap="alldoctor">
+          <view class='shuffles' style="margin-top:{{index==0?'0':'12rpx'}}">
+            <view style='display:flex;'>
+              <view class='imgurl'>
+                <image src='{{item.headphoto}}'></image>
+              </view>
+              <view class='smallwidth'>
+                <view style='font-weight:bold;font-size:34rpx;'>
+                  <text decode='{{true}}'>{{item.doctorname}}&ensp;·&ensp;{{item.duties}}</text>
+                </view>
+                <view class="tagboard">{{item.hospitaname}}</view>
+                <view class="tagboard">擅长：{{item.skillname}}</view>
+                <view style='color:#D74326;font-size:26rpx;margin-top:10rpx;'>
+                  <text class='fl'>￥{{item.phonePrice}}/次</text>
+                  <view class='fr yirenzheng'>已认证</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- <view class='jump'>
+            <view style='border-right: 1rpx solid #f1f0f5;'>
+              <text>图文：<text wx:if='{{item.itaskisopen>0}}'>￥{{item.imageTextPrice}}/次</text><text wx:else>未开通</text></text>
+            </view>
+            <view>
+              <text>电话：<text wx:if='{{item.thaskisopen>0}}'>￥{{item.phonePrice}}/次</text><text wx:else>未开通</text></text>
+            </view>
+          </view> -->
+        </view>
+      </view>
+      <!-- <view style='margin-top:12rpx;'>
+        <view class='shuffle' style='display:flex;'>
+          <view class='imgurl'>
+            <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/aboutus/logo.jpg'></image>
+          </view>
+          <view class='smallwidth'>
+            <view style='font-weight:bold;font-size:34rpx;'>
+              <text decode='{{true}}'>寻医助手</text>
+            </view>
+            <view style='color:#818181;font-size: 26rpx;'>找不到您想要的医生？400-666-0101寻医助手为您推荐知名中医专家</view>
+            <view style='color:#D74326;font-size:26rpx;margin-top:10rpx;'>
+              <text>免费咨询</text>
+            </view>
+          </view>
+        </view>
+        <view class="{{isshow?'fullbg':''}} {{isfull ?'fullopacity':''}}" bindtap="hidebg"></view>
+      </view> -->
+    </view>
+  </view>
+</view>

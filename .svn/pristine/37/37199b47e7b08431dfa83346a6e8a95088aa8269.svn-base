@@ -1,0 +1,209 @@
+// pages/order/physicianorderdetails.js
+var wxRequest = require('../../utils/wxRequest.js');
+var util = require('../../utils/util.js');
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    disabled: false
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.data.options = options;
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    app.globalData.zhixin = { type: 2, val: this }
+    this.query(this, this.data.options)
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+  contactService: function () {
+    wx.getStorage({
+      key: 'common',
+      success: function (res) {
+        wx.makePhoneCall({
+          phoneNumber: res.data.serviceTel,
+          success: function () {
+            console.log('成功')
+          },
+          fail: function () {
+            console.log('失败')
+          }
+        })
+      }
+    })
+  },
+
+  query: function(_this, oid) {
+    var data = {
+      orderID: oid.oid,
+      getDoctor: 1,
+      getOrder: 1
+    }
+    wxRequest.requests('Inquiry/orderDetails', JSON.stringify(data), function(res) {
+      var newtime = res.orderinfo.servicetime * 60 * 60 * 1000 + res.orderinfo.buytime,
+        oldtime = new Date(),
+        lasttime = newtime - oldtime.getTime(),
+        hours = parseInt((lasttime / (1000 * 60 * 60))),
+        minutes = parseInt((parseFloat(lasttime / (1000 * 60 * 60)) - parseInt(lasttime / (1000 * 60 * 60))) * 60),
+        imgurl = '',
+        text = '',
+        iconurl = '',
+        time = '';
+      if (res.orderinfo.paystate == '1' && res.orderinfo.orderstate != '4') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/ddxqbj@3x.png'
+        text = '等待支付'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/szmx@3x.png'
+        if (hours < 1) {
+          time = '剩' + minutes + '分钟自动取消'
+        } else {
+          time = '剩' + hours + '小时' + minutes + '分钟自动取消'
+        }
+      } else if (res.orderinfo.paystate == '2') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/ddxqbj@3x.png'
+        text = '支付已完成'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zfywc@3x.png'
+      } else if (res.orderinfo.orderstate == '4') {
+        imgurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/yzdqxbj@3x.png'
+        text = '已自动取消'
+        iconurl = 'https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zdqx@3x.png'
+      }
+      var img = wx.getStorageSync("common")
+      res.doctor.doctorFace = img.fastDfsUrl + res.doctor.doctorFace
+      res.orderinfo.serviceidtext = util.commonData.serviceid.secondText
+      res.orderinfo.buytime = util.timestampToTime(res.orderinfo.buytime, 1)
+      res.orderinfo.paytime = util.timestampToTime(res.orderinfo.paytime, 1)
+      _this.setData({
+        orderInfo: {
+          order: res,
+          imgurl: imgurl,
+          text: text,
+          iconurl: iconurl,
+          time: time
+        }
+      })
+    })
+  },
+
+  pay: function() {
+    if (this.data.disabled) {
+      return
+    }
+    this.data.disabled = true;
+    this.setData({
+      disabled: true
+    })
+    var _this = this;
+    var serviceId = this.data.orderInfo.order.orderinfo.serviceid
+    var doctorId = this.data.orderInfo.order.orderinfo.doctorid
+    var orderId = this.data.orderInfo.order.orderinfo.id
+    var url = 'weixinpay/sendWeiPayRequest?ordercode=' + this.data.orderInfo.order.orderinfo.ordercode + "&openid=" + wx.getStorageSync("weixin").miniopenid;
+    if (this.data.orderInfo.order.orderinfo.couponid != null && this.data.orderInfo.order.orderinfo.couponid != "") {
+      url += "&kfc=" + this.data.orderInfo.order.orderinfo.couponid;
+    }
+    wxRequest.requests(url, null, null, null, null, function(val) {
+      if (val.return_code == "SUCCESS") {
+        var dosuccess = function() {
+          if (serviceId == 3 || serviceId == 4) {
+            wx.setStorageSync("toimid", doctorId)
+            wx.switchTab({
+              url: '../index/index',
+            })
+          } else {
+            wx.redirectTo({
+              url: '../upload/one?orderid=' + orderId + "&doctorid=" + doctorId,
+            });
+          }
+        }
+        if (val.totalfee == 0) {
+          dosuccess()
+        } else {
+          wx.requestPayment({
+            'appId': val.weiAppLetEntity.appId,
+            'timeStamp': val.weiAppLetEntity.timeStamp,
+            'nonceStr': val.weiAppLetEntity.nonceStr,
+            'package': val.weiAppLetEntity.package,
+            'signType': val.weiAppLetEntity.signType,
+            'paySign': val.weiAppLetEntity.paySign,
+            'success': function(res) {
+              setTimeout(function () {
+                dosuccess()
+              }, 500)
+            },
+            'fail': function(res) {
+              if (res.errMsg != null && res.errMsg == "requestPayment:fail cancel") {
+                _this.query(_this, {
+                  oid: _this.data.orderInfo.order.orderinfo.id
+                })
+              } else if (res.err_desc != null && res.err_desc != "") {
+                wx.showToast({
+                  title: res.err_desc,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            },
+          })
+        }
+      }
+      if (val.return_code == "FAIL") {
+        wx.showToast({
+          title: val.return_msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  }
+})

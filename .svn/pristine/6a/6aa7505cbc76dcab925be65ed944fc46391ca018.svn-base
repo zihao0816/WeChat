@@ -1,0 +1,24 @@
+.no-pay{
+  background-color: #ffffff;
+  padding: 20rpx 30rpx;
+  margin-top: 12rpx;
+}
+.orderids{
+  padding-bottom: 12rpx;
+  border-bottom: 1px solid #f1f0f5
+}
+.same{
+  padding: 10rpx 0;
+}
+.paynone{
+  font-family: PingFang-SC-Regular;
+  font-size: 32rpx;
+  text-align: center;
+  padding-top:40%; 
+  color: #C1C1C1; 
+}
+.img{
+    width:380rpx;
+    height:376px;
+    padding-bottom: 20px;
+}

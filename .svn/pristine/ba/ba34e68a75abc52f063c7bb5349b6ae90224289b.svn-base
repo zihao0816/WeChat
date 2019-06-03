@@ -1,0 +1,60 @@
+<!--pages/upload/three.wxml-->
+<view class='page'>
+  <view class='o-top clearfix'>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/scblh@3x.png'></image>
+      <view class='text-colors'>上传病历</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txzsh@3x.png'></image>
+      <view class='text-colors'>填写主诉</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/txzs@3x.png'></image>
+      <view class='text-color'>填写问诊单</view>
+    </view>
+    <view class='fl borders'></view>
+    <view class='fl img-w'>
+      <image style='width:48rpx;height:48rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/scsmzh@3x.png'></image>
+      <view class='text-colors'>上传舌照面照</view>
+    </view>
+  </view>
+  <view class='topic'>
+    <view wx:for="{{upmod.reorderinquiryquestion}}" wx:for-index="index" wx:for-item="item" wx:key="item" style='padding:32rpx 40rpx;background-color:#ffffff;margin-bottom:2rpx;'>
+      <view>{{index+1}}.{{item.questionname}}{{item.singleselectiontext}}</view>
+      <view wx:if="{{item.singleselection == '1'}}"> 
+        <radio-group class="clearfix" bindchange="radioChange" data-vas="{{item.id}}">
+          <label class="weui-celss weui-check__label fl" wx:for="{{item.orderinquiryoptions}}" wx:key="items"  wx:for-item="items">
+            <checkbox class="weui-check" value="{{items.questionid+'-'+items.id}}" checked="{{items.ischecked==1}}"/>
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:44rpx;height:44rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/circle.png") no-repeat;background-size:100% 100%;' wx:if="{{items.ischecked=='2' || items.ischecked==null}}"></icon>
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:44rpx;height:44rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/yes@2x.png") no-repeat;background-size:100% 100%;' wx:if="{{items.ischecked=='1'}}"></icon>
+            </view>
+            <view class="weui-cell__bd">{{items.anwser}}</view>
+          </label>
+        </radio-group>
+
+       </view>
+       <view wx:else> 
+       <checkbox-group class="clearfix" bindchange="checkboxChange" data-vas="{{item.id}}">
+          <label class="weui-celss weui-check__label fl" wx:for="{{item.orderinquiryoptions}}" wx:key="items"  wx:for-item="items">
+            <checkbox class="weui-check" value= "{{items.questionid+'-'+items.id}}" checked="{{items.ischecked==1}}"/>
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:44rpx;height:44rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/circle.png") no-repeat;background-size:100% 100%;' wx:if="{{items.ischecked=='2' || items.ischecked==null}}"></icon>
+              <icon class="" style='margin-left:4.6px;margin-right:4.6px;width:44rpx;height:44rpx;background:url("https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/yes@2x.png") no-repeat;background-size:100% 100%;' wx:if="{{items.ischecked=='1'}}"></icon>
+            </view>
+            <view class="weui-cell__bd">{{items.anwser}}</view>
+          </label>
+        </checkbox-group>
+        </view>
+      <view>
+        
+      </view>
+    </view>
+  </view>
+  <view class='next'>
+    <button class="weui-btn" type="default" bindtap='nexts'>下一步</button>
+  </view>
+</view>

@@ -1,0 +1,84 @@
+<template name="physicianorderdetails">
+  <view class='page'>
+    <view class='un-top' style='background: url({{orderInfo.imgurl}}) no-repeat;background-size: 100% 100%;'>
+      <view>
+        <image style='height:40rpx;width:40rpx;vertical-align:middle;margin-right:20rpx;' src='{{orderInfo.iconurl}}'></image>
+        <text style='vertical-align:middle;'>{{orderInfo.text}}</text>
+      </view>
+      <view style='margin-left:60rpx;' hidden='{{orderInfo.order.orderinfo.paystate!=1}}'>{{orderInfo.time}}</view>
+    </view>
+    <view class='un-order'>
+      <view class='padleft'>
+        <view class='clearfix orderid'>
+          <text class='fl'>订单号</text>
+          <text class='fr'>{{orderInfo.order.orderinfo.ordercode}}</text>
+        </view>
+      </view>
+      <view style='padding:30rpx; display:flex;'>
+        <view>
+          <image style='width:110rpx;height:110rpx;border-radius:8rpx;' src='{{orderInfo.order.doctor.doctorFace}}'></image>
+        </view>
+        <view style='margin-left:20rpx;flex:1;width:80%;'>
+          <view style='margin-bottom:30rpx;'>
+            <text>{{orderInfo.order.doctor.doctorName}}</text>
+            <image style='width:100rpx;margin-left:20rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yirenzhen@3x.png'></image>
+          </view>
+          <view decode='{{true}}' style='display:flex;'>
+            <text>{{orderInfo.order.doctor.duties}}</text>
+            <text style='flex:1;margin-left:32rpx;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;'>{{orderInfo.order.doctor.hospitaname}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view style='background-color:#ffffff;margin-top:20rpx;'>
+      <view class="weui-celle weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">{{orderInfo.order.orderinfo.serviceidtext}}</view>
+          <view class="weui-cell__ft">￥{{orderInfo.order.orderinfo.totalprice}}</view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">
+            <text style='color:#ffffff;background-color:#d74326;padding:0 6rpx;margin-right:14rpx;'>减</text>优惠券
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">
+            {{orderInfo.order.orderinfo.saleprice==null||orderInfo.order.orderinfo.saleprice=="0"?"暂无优惠":"-￥"+orderInfo.order.orderinfo.saleprice}}
+          </view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title" hidden='{{orderInfo.order.orderinfo.paystate!=2}}'>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">实付款</view>
+          <view class="weui-cell__ft">￥{{orderInfo.order.orderinfo.actualprice}}</view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">下单时间</view>
+          <view class="weui-cell__ft">{{orderInfo.order.orderinfo.buytime}}</view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title" hidden='{{orderInfo.order.orderinfo.paystate!=2}}'>
+        <view class="weui-cell">
+          <view class="weui-cell__bd">支付时间</view>
+          <view class="weui-cell__ft">{{orderInfo.order.orderinfo.paytime}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='paymoney clearfix' style='height:112rpx;' hidden='{{orderInfo.order.orderinfo.paystate!="1" || orderInfo.order.orderinfo.orderstate=="4"}}'>
+      <view class='fl' bindtap='contactService' style='margin:10rpx 0rpx 10rpx 30rpx;padding-right:30rpx;border-right:1rpx solid #dfdfdf;'>
+        <image style='width:40rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/kf@3x.png'></image>
+        <view style='font-size:24rpx;'>客服</view>
+      </view>
+      <view class='fl' style='margin:10rpx 30rpx;'>
+        <view style='font-size:24rpx;'>实付：</view>
+        <view>
+          <text>￥<text>{{orderInfo.order.orderinfo.actualprice}}</text></text>元</view>
+      </view>
+      <view class='fr' style='height:100%;'>
+        <button class="weui-btn" disabled='{{disabled}}' bindtap='pay' type="primary" style='line-height:112rpx;height:100%;background-color:#d74326;color:#ffffff;border-radius:0;'>立即支付</button>
+      </view>
+    </view>
+  </view>
+</template>

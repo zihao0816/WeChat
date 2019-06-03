@@ -1,0 +1,3 @@
+<!--pages/doctor/doctordetails.wxml-->
+<import src="../../template/doctordetails.wxml"/>
+<template is="doctordetails" data="{{dataInfo}}"></template>

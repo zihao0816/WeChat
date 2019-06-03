@@ -1,0 +1,62 @@
+<!--pages/upload/four.wxml-->
+<view class='page'>
+  <view class='f-picture'>
+    <view class='fp-one'>舌照</view>
+    <view class='fp-two'>
+      <view style='display:inline-block'>
+        <image wx:for="{{upmod.accordingTtongueurl}}" wx:key="index" wx:for-index="index" class="{{index%3==2?'maralls':'marall'}}" style='width:180rpx;height:180rpx;position:relative;padding-top:32rpx;' src='{{upmod.accordingTtongueurl[index]}}'  data-fileurl='{{upmod.accordingTtongueurl[index]}}' bindtap='seephoto' data-filetype="accordingTtongue">
+          <image class="{{index%3==2?'posize':'posizes'}}" style='width:36rpx;height:36rpx;position:absolute;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/-@3x.png' data-filename='{{upmod.accordingTtongue[index]}}'  catchtap='delimage' data-filetype="accordingTtongue"></image>
+        </image>
+      </view>
+      <view style='height:180rpx;width:180rpx;display:inline-block'>
+        <image style='width:100%;height:100%;padding-top:32rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/tjtp@3x.png' catchtap='upimage' data-filetype="accordingTtongue"></image>
+      </view>
+    </view>
+    <view class='' style='background-color:#ffffff;'>
+      <view style='font-size:24rpx;color:#C1C1C1;text-align:center;margin:0 44rpx;border-top:1rpx dashed #C1C1C1;padding-top:32rpx;'>拍舌苔时，舌头向下伸长；拍舌底时，舌头向上抬起</view>
+      <view style='padding:32rpx 0;text-align:center;'>
+        <image style='width:100rpx;height:100rpx;margin-right:150rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/szl@3x.png'></image>
+        <image style='width:100rpx;height:100rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/sz@3x.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='f-picture'>
+    <view class='fp-one'>面照</view>
+    <view class='fp-two'>
+      <view style='display:inline-block'>
+        <image wx:for="{{upmod.surfaceAccordingurl}}" wx:key="index" wx:for-index="index" class="{{index%3==2?'maralls':'marall'}}" style='width:180rpx;height:180rpx;position:relative;padding-top:32rpx;' src='{{upmod.surfaceAccordingurl[index]}}'  data-fileurl='{{upmod.surfaceAccordingurl[index]}}' bindtap='seephoto' data-filetype="surfaceAccording">
+          <image class="{{index%3==2?'posize':'posizes'}}" style='width:36rpx;height:36rpx;position:absolute;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/-@3x.png' data-filename='{{upmod.surfaceAccording[index]}}'  catchtap='delimage' data-filetype="surfaceAccording"></image>
+        </image>
+      </view>
+      <view style='height:180rpx;width:180rpx;display:inline-block'>
+        <image style='width:100%;height:100%;padding-top:32rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/tjtp@3x.png' catchtap='upimage' data-filetype="surfaceAccording"></image>
+      </view>
+    </view>
+    <view class='' style='background-color:#ffffff;'>
+      <view style='font-size:24rpx;color:#C1C1C1;margin:0 44rpx;border-top:1rpx dashed #C1C1C1;padding-top:32rpx;'>自然光线下拍摄面部素颜照片，如有需要也可拍摄其他患部照片</view>
+      <view style='padding:32rpx 0;text-align:center;'>
+        <image style='width:100rpx;height:100rpx;margin-right:150rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/Group2Copy@3x.png'></image>
+        <image style='width:100rpx;height:100rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/mz-hcopy@3x.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='f-picture' style='padding-bottom:80rpx;'>
+    <view class='fp-one'>其他资料（选填）</view>
+    <view class='fp-two'>
+      <view style='display:inline-block'>
+        <image wx:for="{{upmod.otherdetailsurl}}" wx:key="index" wx:for-index="index" class="{{index%3==2?'maralls':'marall'}}" style='width:180rpx;height:180rpx;position:relative;padding-top:32rpx;' src='{{upmod.otherdetailsurl[index]}}'  data-fileurl='{{upmod.otherdetailsurl[index]}}' bindtap='seephoto' data-filetype="otherdetails">
+          <image class="{{index%3==2?'posize':'posizes'}}" style='width:36rpx;height:36rpx;position:absolute;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/-@3x.png' data-filename='{{upmod.otherdetails[index]}}'  catchtap='delimage' data-filetype="otherdetails"></image>
+        </image>
+      </view>
+      <view style='height:180rpx;width:180rpx;display:inline-block'>
+        <image style='width:100%;height:100%;padding-top:32rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/upload/tjtp@3x.png' catchtap='upimage' data-filetype="otherdetails"></image>
+      </view>
+    </view>
+    <view class='' style='background-color:#ffffff;'>
+      <view style='font-size:24rpx;color:#C1C1C1;margin:0 44rpx;border-top:1rpx dashed #C1C1C1;padding:32rpx 0;'>如有相关的检查报告或化验单，请上传照片，以便医生更准确的为您诊疗</view>
+    </view>
+  </view>
+  <view class='next' hidden='{{types==1}}'>
+    <button class="weui-btn" type="default" bindtap='nexts'>发给医生</button>
+  </view>
+</view>

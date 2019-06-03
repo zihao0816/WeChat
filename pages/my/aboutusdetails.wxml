@@ -1,0 +1,2 @@
+<!--pages/my/aboutusdetails.wxml-->
+<web-view src='https://service.51bjhzy.com/wechatSubroutine/useragreement/'></web-view>

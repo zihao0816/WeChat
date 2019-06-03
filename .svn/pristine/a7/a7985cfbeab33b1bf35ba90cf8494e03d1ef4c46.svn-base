@@ -1,0 +1,112 @@
+<!-- pages/physicianvisits/physicianvisitsList.wxml -->
+<view class="page  {{doctoralldata == null || doctoralldata == '' || doctoralldata.length == 1 ? 'doctoralldata' : ''}}">
+<!-- 搜索栏 -->
+  <!-- <view class="page__bd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索症状、医生、医院、科室" confirm-type="search" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">{{contents}}</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+  </view> -->
+
+  <!-- 查询医生 -->
+  <view class="all-doctor">
+    <view class="a-search {{Stick? 'searchall' : ''}}">
+      <view class="nav" style='position:relative;'>
+        <view class="nav-son {{shownavindex == 1? 'active' : ''}}" bindtap="typeList" data-nav="1">
+          <view class="contents">{{inquiry}}</view>
+          <view class="icon"></view>
+        </view>
+        <view class="nav-son borderss {{shownavindex == 2? 'active' : ''}}" bindtap="hospitalList" data-nav="2">
+          <view class="contents">{{hospit}}</view>
+          <view class="icon"></view>
+        </view>
+        <view class="nav-son {{shownavindex == 3? 'active' : ''}}" bindtap="departmentList" data-nav="3">
+          <view class="contents">{{derpartments}}</view>
+          <view class="icon"></view>
+        </view>
+        <view style='top:{{titleHeights}}' class="temp temp2 {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:for-item="item" wx:key="key" data-valtype="openservice" data-types='inquiry' data-value='{{item.name}}' data-val="{{item.id}}" bindtap="querybykey">
+            {{item.name}}
+          </view>
+        </view>
+        <view style='top:{{titleHeights}}' class="temp temp1 {{qyopen ? 'slidown' : 'slidup'}} {{qyshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:key="item" wx:for-item="item" data-valtype="hospitaid" data-types='hospit' data-value='{{item.hospitaname}}' data-val="{{item.id}}" bindtap="querybykey">
+            {{item.hospitaname}}
+          </view>
+        </view>
+        <view style='top:{{titleHeights}}' class="temp temp2 {{nzopen ? 'slidown' : 'slidup'}} {{nzshow ? 'disappear':''}}">
+          <view wx:for="{{content}}" wx:for-item="item" wx:key="item" data-valtype="department" data-types='derpartments' data-value='{{item.itemname}}' data-val="{{item.itemcode}}" bindtap="querybykey">
+            {{item.itemname}}
+          </view>
+        </view>
+        
+      </view>
+    </view>
+    <view style='position:relative;'>
+      <view wx:for='{{doctoralldata}}' wx:for-item='item' wx:key='index'>
+        <view data-did='{{item.id}}' data-state='1' bindtap="alldoctor">
+          <view class='shuffles' style="margin-top:{{index==0?'0':'12rpx'}}">
+            <view style='display:flex;'>
+              <view class='imgurl'>
+                <image src='{{item.headphoto}}'></image>
+              </view>
+              <view class='smallwidth'>
+                <view style='font-weight:bold;font-size:34rpx;'>
+                  <text decode='{{true}}'>{{item.doctorname}}&ensp;·&ensp;{{item.duties}}</text>
+                </view>
+                <view class="tagboard">{{item.hospitaname}}</view>
+                <view class="tagboard">擅长：{{item.skillname}}</view>
+                <view style='color:#D74326;font-size:26rpx;margin-top:10rpx;'>
+                  <text class='fl'>￥{{item.phonePrice}}/次</text>
+                  <!-- <view class='fr yirenzheng'>已认证</view> -->
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+<!-- 查找医生页面 -->
+  <!-- <view style='background-color:#fff;padding:20rpx 40rpx 40rpx 40rpx;'>
+    <view class="departments">
+      <view class="titles">肿瘤科</view>
+      <view class="itemss">
+        <text>子宫肌瘤子宫肌瘤子宫肌瘤</text>
+        <text>痛经</text>
+        <text>子宫肌瘤</text>
+        <text>子宫</text>
+      </view>
+    </view>
+    <view class="departments">
+      <view class="titles">肿瘤科</view>
+      <view class="itemss">
+        <text catchtap='symptom'>子宫肌瘤子宫肌瘤子宫肌瘤</text>
+        <text>痛经</text>
+        <text>子宫肌瘤</text>
+        <text>子宫</text>
+      </view>
+    </view><view class="departments">
+      <view class="titles">肿瘤科</view>
+      <view class="itemss">
+        <text>子宫肌瘤子宫肌瘤子宫肌瘤</text>
+        <text>痛经</text>
+        <text>子宫肌瘤</text>
+        <text>子宫</text>
+      </view>
+    </view>
+  </view> -->
+</view>

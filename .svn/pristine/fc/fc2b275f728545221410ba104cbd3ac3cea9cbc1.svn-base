@@ -1,0 +1,155 @@
+<!--pages/makemedicine/makemedicinedetails.wxml-->
+<view class='page'>
+  <view class='imgs' style='background-image: url({{imgurl}})'>
+    <view>
+      <image style='height:40rpx;width:40rpx;vertical-align:middle;margin-right:20rpx;' src='{{iconurl}}'></image>
+      <text style='vertical-align:middle;'>{{text}}</text>
+    </view>
+    <view style='margin-left:60rpx;' hidden='{{paystate!=1}}'>{{time}}</view>
+  </view>
+  <view class='ma-top' bindtap='jumpadd' hidden='{{yzshow}}'>
+    <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/xz@3x.png'></image>
+    <text>新增收货人地址</text>
+  </view>
+  <view class='address'>
+    <view wx:for="{{patientaddressinfo}}" wx:for-index="index" wx:for-item="item" class="touch-item {{item.isTouchMove?'touch-move-active':''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove" data-addressid='{{item.id}}' catchtap='addressdefault'>
+      <view class="contentes">
+        <view style='display:inline-block;vertical-align:middle;'>
+          <icon class="{{item.isdefault==1?'weui-icon-checkbox_success':'weui-icon-checkbox_circle'}}" type="{{item.isdefault==1?'success':'circle'}}" size="23"></icon>
+        </view>
+        <view style='display:inline-block;vertical-align:middle;margin-left:32rpx;width:80%'>
+          <view class='clearfix' style='margin-bottom:32rpx;'>
+            <text class='fl'>收货人：{{item.receiver}}</text>
+            <text class='fr'>{{item.telephone}}</text>
+          </view>
+          <view>收货地址：{{(item.province==null?"":item.province)+(item.city==null?"":item.city)+(item.county==null?"":item.county)+(item.address==null?"":item.address)}}</view>
+        </view>
+      </view>
+      <view class="del" catchtap="up" data-addressid='{{item.id}}' style='background:#C1C1C1;'>编辑</view>
+      <view class="del" catchtap="del" data-addressid='{{item.id}}' style='background:#D74326;'>删除</view>
+    </view>
+  </view>
+  <view class='ma-message'>
+    <view class='mone mt-title'>医生信息</view>
+    <view class='mtwo' style='display:flex;height:164rpx'>
+      <view class='mtimg'>
+        <image src='{{makeInfo.doctor.doctorFace}}'></image>
+      </view>
+      <view style='margin-left:20rpx; flex:1'>
+        <view>
+          <text>{{makeInfo.doctor.doctorName}}</text>
+          <image style='width:100rpx;margin-left:20rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yirenzhen@3x.png'></image>
+        </view>
+        <view style='margin-top:10rpx;color:#818181;display:flex;'>
+          <text>{{makeInfo.doctor.duties}}</text>
+          <text style='margin-left:32rpx;flex:1;'>{{makeInfo.doctor.hospitaname}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='mthree'>
+      <view class='mt-title' style='margin-bottom:16rpx;'>医生辨证</view>
+      <view style="word-break:break-all">{{makeInfo.orderprescriptioninfos[0].doctorconclusion}}</view>
+    </view>
+  </view>
+  <view class='medicine'>
+    <view class='clearfix padbottom'>
+      <view class='fl colors'>药房</view>
+      <view class='fr'>{{makeInfo.orderprescriptioninfos[0].hospitaName}}</view>
+    </view>
+    <view class='clearfix'>
+      <view class='fl colors'>药态</view>
+      <view class='fr'>{{makeInfo.orderprescriptioninfos[0].prescriptionshape}}</view>
+    </view>
+  </view>
+  <view class='un-orders' style='padding:32rpx 40rpx;'>
+    <view style='border-bottom:1rpx dashed #dfdfdf'>
+      <view style='margin-bottom:20rpx;'>R:</view>
+      <view style='padding-bottom:20rpx;'>
+        <text style='margin-right:50rpx;' decode='{{true}}'>{{makeInfo.orderprescriptioninfos[0].medicinalDetails}}</text>
+      </view>
+    </view>
+    <view style='padding-top:20rpx;'>
+      <view style='padding-bottom:30rpx;'>
+        <view class='colors' style='padding-bottom:16rpx;'>用药说明</view>
+        <view class='prescript'>共
+          <text>{{makeInfo.orderprescriptioninfos[0].totaldosage}}</text>剂，每日
+          <text>{{makeInfo.orderprescriptioninfos[0].daydosage}}</text>剂，每剂分
+          <text>{{makeInfo.orderprescriptioninfos[0].taketime}}</text>次服用</view>
+      </view>
+      <view style='padding-bottom:30rpx;'>
+        <view class='colors' style='padding-bottom:16rpx;'>医嘱</view>
+        <view>{{makeInfo.orderprescriptioninfos[0].specialadvice}}</view>
+      </view>
+      <view>
+        <view class='colors' style='padding-bottom:16rpx;'>用药禁忌</view>
+        <view>{{makeInfo.orderprescriptioninfos[0].taboo}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='un-orders' style='padding-bottom:20rpx;'>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">药方总价</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>￥{{makeInfo.orderprescriptioninfos[0].totalprice}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='mycoupons'>
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">
+          <text style='color:#ffffff;background-color:{{makeInfo.orderprescriptioninfos[0].saleprice==null||makeInfo.orderprescriptioninfos[0].saleprice=="0"?"#c1c1c1":"#D74326"}};padding:0 6rpx;margin-right:14rpx;'>减</text>优惠券</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>{{makeInfo.orderprescriptioninfos[0].saleprice==null||makeInfo.orderprescriptioninfos[0].saleprice=="0"?"暂无优惠":"-￥"+makeInfo.orderprescriptioninfos[0].saleprice}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title" hidden='{{makeInfo.orderprescriptioninfos[0].paystate==1}}'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">实付款</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>￥{{makeInfo.orderprescriptioninfos[0].actualprice}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">运费</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>￥0.00</view>
+      </view>
+      <view class='weui-cell__ft shipping'>平台推广期间免运费</view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">订单号</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>{{makeInfo.orderprescriptioninfos[0].orderid}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title" style='padding-bottom:{{makeInfo.orderprescriptioninfos[0].paystate==1?80:0}}rpx;'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">下单时间</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>{{makeInfo.orderprescriptioninfos[0].buytime}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title" hidden='{{makeInfo.orderprescriptioninfos[0].paystate==1 || makeInfo.orderprescriptioninfos[0].paystate==3}}'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">支付时间</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>{{makeInfo.orderprescriptioninfos[0].paytime}}</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title" hidden='{{makeInfo.orderprescriptioninfos[0].paystate==1 || makeInfo.orderprescriptioninfos[0].paystate==2}}'>
+      <view class="weui-cell">
+        <view class="weui-cell__bd {{makeInfo.orderprescriptioninfos[0].paystate==1?'':'colors'}}">取消时间</view>
+        <view class="weui-cell__ft" style='color:{{makeInfo.orderprescriptioninfos[0].paystate==1?"" :"#141414"}}'>{{canceling}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='paymoney clearfix' hidden='{{zhifushow}}'>
+    <view class='fl' style='margin:10rpx 0rpx 10rpx 30rpx;padding-right:30rpx;border-right:1rpx solid #dfdfdf;' bindtap='contactService'>
+      <image style='width:40rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/kf@3x.png'></image>
+      <view style='font-size:24rpx;'>客服</view>
+    </view>
+    <view class='fl' style='margin:8rpx 30rpx;'>
+      <view style='font-size:24rpx;'>实付：</view>
+      <view style="color:#d74326;font-size:32rpx;">
+        <text>￥<text>{{makeInfo.orderprescriptioninfos[0].actualprice}}</text></text>元</view>
+    </view>
+    <view class='fr'>
+      <button class="weui-btn" type="primary" bindtap='paypay' disabled='{{disabled}}' style='background-color:#d74326;color:#ffffff;border-radius:0;'>立即支付</button>
+    </view>
+  </view>
+</view>

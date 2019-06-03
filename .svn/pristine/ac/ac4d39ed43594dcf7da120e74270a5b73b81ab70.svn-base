@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/physicianvisits/physicianvisitsList",
+    "pages/index/index",
+    "pages/index/login",
+    "pages/im/index",
+    "pages/im/seemedicine",
+    "pages/logs/logs",
+    "pages/my/index",
+    "pages/my/mydoctor",
+    "pages/my/myorder",
+    "pages/my/mymedicalrecords",
+    "pages/my/myprofile",
+    "pages/my/addregion",
+    "pages/my/mycoupons",
+    "pages/my/couponsList",
+    "pages/my/aboutus",
+    "pages/my/aboutusdetails",
+    "pages/my/preliminarydatadetails",
+    "pages/my/medicalrecorddetails",
+    "pages/doctor/doctordetails",
+    "pages/doctor/purchasingservicedetails",
+    "pages/order/physicianorderdetails",
+    "pages/order/prescriptionorderdetails",
+    "pages/makemedicine/index",
+    "pages/makemedicine/makemedicinedetails",
+    "pages/problemfeedback/index",
+    "pages/upload/one",
+    "pages/upload/two",
+    "pages/upload/three",
+    "pages/upload/four"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "北京好中医",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#aaaaaa",
+    "selectedColor": "#d74326",
+    "borderStyle": "#edecef",
+    "list": [
+      {
+        "selectedIconPath": "imgs/wzxz@2x.png",
+        "iconPath": "imgs/wz@2x.png",
+        "pagePath": "pages/index/index",
+        "text": "问诊"
+      },
+      {
+        "selectedIconPath": "imgs/ys_y@3x.png",
+        "iconPath": "imgs/ys_n@3x.png",
+        "pagePath": "pages/physicianvisits/physicianvisitsList",
+        "text": "医生"
+      },
+      {
+        "selectedIconPath": "imgs/qyxz@3x.png",
+        "iconPath": "imgs/qy@3x.png",
+        "pagePath": "pages/makemedicine/index",
+        "text": "取药"
+      },
+      {
+        "selectedIconPath": "imgs/wdxz@2x.png",
+        "iconPath": "imgs/wd@2x.png",
+        "pagePath": "pages/my/index",
+        "text": "我"
+      }
+    ]
+  }
+}

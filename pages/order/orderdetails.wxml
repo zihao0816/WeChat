@@ -1,0 +1,3 @@
+<!--pages/order/orderdetails.wxml-->
+<import src="../../template/unpaidorderdetails.wxml" />
+<template is="unpaidorderdetails"></template>

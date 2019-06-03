@@ -1,0 +1,41 @@
+/* pages/my/newmyprofile.wxss */
+page{
+  background: #ffffff;
+}
+.pages .user-img{
+  text-align: center;
+}
+.pages .user-img image{
+  border-radius: 50%;
+  margin: 30rpx 0 20rpx;
+}
+.pages .user-img view{
+  font-weight: bold;
+}
+.pages .user-form {
+  margin-top: 88rpx;
+}
+.weui-flex {
+  padding: 32rpx 0;
+  margin: 0 40rpx;
+  border-bottom: 2rpx solid #E3E3E3;
+  background-color: #fff;
+  align-items: center;
+}
+
+.weui-flex__item {
+  text-indent: 10rpx;
+}
+
+.weui-flex__item .yan {
+  padding: 0 16rpx;
+}
+.oldcolor{
+  color:#007AFF;
+}
+.newcolor{
+  color:#c1c1c1;
+}
+button::after{
+  border: none;
+}

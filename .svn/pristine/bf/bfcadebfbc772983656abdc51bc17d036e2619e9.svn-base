@@ -1,0 +1,17 @@
+/* pages/upload/two.wxss */
+.page .readme{
+  margin-top: 12rpx;
+}
+.readme .r-title{
+  background: #ffffff;
+  padding: 32rpx 40rpx;
+  margin-bottom: 2rpx;
+}
+.readme .r-text{
+  background: #ffffff;
+  padding: 32rpx 40rpx;
+}
+.details{
+  margin-top: 12rpx;
+  background: #ffffff;
+}

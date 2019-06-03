@@ -1,0 +1,63 @@
+<!--pages/my/newmyprofiletwo.wxml-->
+<view class='profile'>
+  <view class='toast'>请填写真实信息，根据国家相关规定，就诊需实名制</view>
+  <view class='user-img'>
+    <view style='width:200rpx;height:200rpx;margin:auto;position:relative;'>
+      <image style='width:100%;height:100%;' src='{{weixin.newheadphoto}}'></image>
+      <view bindtap='choosephoto' style='position:absolute;top:0;background-color:rgba(0,0,0,0.2);width:200rpx;height:200rpx;border-radius:50%;'>
+        <image style='width:48rpx;margin-top:44rpx;' mode='widthFix' src='../../imgs/adds.png'></image>
+        <view>上传照片</view>
+      </view>
+    </view>
+  </view>
+  <view class='page__bd page__bd_spacing user-form'>
+    <view style='background:#ffffff;border-radius:16rpx;padding:32rpx 30rpx;'>
+      <view>
+        <text decode='{{true}}'>姓&emsp;名</text>
+      </view>
+      <view class='' style='margin-top:32rpx;background:#f8f8f8;height:108rpx;'>
+        <input type='text' value='{{weixin.patientname}}' placeholder-class="place-holder" data-inputname="phonenum" bindinput='inputchange' placeholder='请填写真实姓名' style='padding-left:30rpx;height:100%;' />
+      </view>
+    </view>
+    <view class='weui-flex' style='background:#ffffff;border-radius:16rpx;padding:32rpx 30rpx;margin-top:20rpx;'>
+      <text decode='{{true}}'>性&emsp;别</text>
+      <view class='weui-flex__item' style='margin-left:48rpx;'>
+        <picker class='fl' style='width:100%;' value="{{sexindex}}" range="{{sexList}}" bindchange="bindSexChange">
+          <view class="weui-select" style='border:none;'>{{sexList[sexindex]}}</view>
+          <!-- <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image> -->
+        </picker>
+      </view>
+    </view>
+    <view style='background:#ffffff;border-radius:16rpx;padding:32rpx 30rpx;margin-top:20rpx;'>
+      <view>
+        <text decode='{{true}}'>出生日期</text>
+      </view>
+      <view style='display:flex;margin-top:32rpx;'>
+        <view style='background:#F8F8F8;display:flex;padding:32rpx 30rpx;margin-right:40rpx;'>
+          <input type='number' style='flex:1;' maxlength='4' placeholder-class="place-holder" value='{{weixin.newbirthday[0]}}'  bindinput='yearchange' />
+          <text>年</text>
+        </view>
+        <view style='background:#F8F8F8;display:flex;padding:32rpx 30rpx;margin-right:40rpx;'>
+          <input type='number' style='flex:1;' maxlength='2' placeholder-class="place-holder" value='{{weixin.newbirthday[1]}}' bindinput='monthchange' />
+          <text>月</text>
+        </view>
+        <view style='background:#F8F8F8;display:flex;padding:32rpx 30rpx;'>
+          <input type='number' style='flex:1;' maxlength='2' placeholder-class="place-holder" value='{{weixin.newbirthday[2]}}' bindinput='daychange' />
+          <text>日</text>
+        </view>
+      </view>
+    </view>
+    <view class='weui-flex' style='background:#ffffff;border-radius:16rpx;padding:32rpx 30rpx;margin:20rpx 0 40rpx;'>
+      <text decode='{{true}}'>关&emsp;系</text>
+      <view class='weui-flex__item' style='margin-left:48rpx;'>
+        <picker class='fl' style='width:100%;' value="{{reindex}}" range="{{relation}}" bindchange="bindRelationChange">
+          <view class="weui-select" style='border:none;'>{{relation[reindex]}}</view>
+          <!-- <image class='fr' style='width:14rpx;height:24rpx;vertical-align:middle;margin-left:20rpx;margin-right:4rpx;margin-top:12rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/my/dj@3x.png'></image> -->
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view style='position:fiexd;bottom:0;width:100%;'>
+    <button style='color:#ffffff;background:#D74326;border-radius:0;' bindtap='finish'>完成</button>
+  </view>
+</view>

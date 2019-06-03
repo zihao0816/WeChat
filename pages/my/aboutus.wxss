@@ -1,0 +1,21 @@
+/* pages/my/aboutus.wxss */
+.about-top{
+  background-color: #ffffff;
+  border-top: 1rpx solid #dfdfdf;
+  margin-bottom: 12rpx;
+  text-align: center;
+}
+.about-content{
+  background-color: #ffffff;
+  color: #141414;
+}
+.weui-celles{
+  padding: 20rpx 30rpx;
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:flex;
+  -webkit-box-align:center;
+  -webkit-align-items:center;
+  align-items:center;
+  border-bottom:1rpx solid #dfdfdf; 
+}

@@ -1,0 +1,86 @@
+<template name="doctordetails">
+<view class='page'>
+  <view class='p-tops'>
+    <view>
+      <image class='headimg' src='{{dataInfo.infos.doctorFace}}'></image>
+      <view class='name'><span class='word'>{{dataInfo.infos.doctorName}}</span><image class='yrz' mode="widthFix" src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yirenzhen@3x.png'></image></view>
+      <view class='message'><text decode='{{true}}'>{{dataInfo.infos.duties}}&ensp;&ensp;{{dataInfo.infos.hospitaname}}</text></view>
+    </view>
+  </view>
+  <!--<view class='p-content' hidden='{{dataInfo.info.state==1&&dataInfo.infos.itagainisopen<0?true:(dataInfo.info.state==2&&dataInfo.infos.itaskisopen<0?true:false)}}'>
+    <view class='tuwen-content'>
+      <view class='tuwen'><text decode='{{true}}'>・&nbsp;{{dataInfo.info.state==1?'图文复诊':'图文咨询'}}&nbsp;・</text></view>
+      <view class='tuwen-pay'>
+        <view class='clearfix payone'>
+          <view class='fl'>
+            <image style='width:40rpx;vertical-align: middle;' mode="widthFix" src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/tuwenfuzhen@3x.png'></image>
+            <text style='vertical-align: middle;padding-left:16rpx;'>单次价格</text>
+          </view>
+          <view class='fr' style='color:#d74326' hidden='{{dataInfo.info.state!=1}}'>￥{{dataInfo.infos.itagainprice}}/次</view>
+          <view class='fr' style='color:#d74326' hidden='{{dataInfo.info.state!=2}}'>￥{{dataInfo.infos.itaskprice}}/次</view>
+        </view>
+        <view class='clearfix paytwo'>
+          <view class='fl'>
+            <image style='width:40rpx;vertical-align:middle;' mode="widthFix" src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/meirijiedan@3x.png'></image>
+            <text style='vertical-align: middle;padding-left:16rpx;' hidden='{{dataInfo.info.state!=1}}'>每日接单上限{{dataInfo.infos.itagainisopen}}次</text>
+            <text style='vertical-align: middle;padding-left:16rpx;' hidden='{{dataInfo.info.state!=2}}'>每日接单上限{{dataInfo.infos.itaskisopen}}次</text>
+          </view>
+          <view class='fr' style='color:#f5a92a' hidden='{{dataInfo.info.state!=1}}'>今日剩余{{dataInfo.infos.itagainisopensurplus}}次</view>
+          <view class='fr' style='color:#f5a92a' hidden='{{dataInfo.info.state!=2}}'>今日剩余{{dataInfo.infos.itaskisopensurplus}}次</view>
+        </view>
+      </view>
+      <view class='btnsecond'>
+        <button class="weui-btn mini-btn" data-types='1' bindtap='buygraphic' type="warn" size="mini" hidden="{{dataInfo.info.ishidden?true:(dataInfo.info.state!=1?true:false)}}">点此复诊</button>
+        <button class="weui-btn mini-btn" data-types='1' bindtap='buygraphic' type="warn" size="mini" hidden="{{dataInfo.info.ishidden?true:(dataInfo.info.state!=2?true:false)}}">点此咨询</button>
+      </view>
+    </view>
+  </view> -->
+  <view class='p-content' hidden='{{dataInfo.info.state==1&&dataInfo.infos.thagainisopen<0}}'>
+    <view class='tuwen-content'>
+      <view class='tuwen'><text decode='{{true}}'>・&nbsp;在线复诊&nbsp;・</text></view>
+      <view class='tuwen-pay'>
+        <view class='clearfix payone'>
+          <view class='fl'>
+            <image style='width:40rpx;vertical-align: middle;' mode="widthFix" src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/tuwenfuzhen@3x.png'></image>
+            <text style='vertical-align: middle;padding-left:16rpx;'>单次价格</text>
+          </view>
+          <view class='fr' style='color:#d74326' hidden='{{dataInfo.info.state!=1}}'>￥{{dataInfo.infos.thagainprice}}/次</view>
+          <!-- <view class='fr' style='color:#d74326' hidden='{{dataInfo.info.state!=2}}'>￥{{dataInfo.infos.thaskprice}}/次</view> -->
+        </view>
+        <view class='clearfix paytwo'>
+          <view class='fl'>
+            <image style='width:40rpx;vertical-align: middle;' mode="widthFix" src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/meirijiedan@3x.png'></image>
+            <text style='vertical-align: middle;padding-left:16rpx;' hidden='{{dataInfo.info.state!=1}}'>每日接单上限{{dataInfo.infos.thagainisopen}}次</text>
+            <!-- <text style='vertical-align: middle;padding-left:16rpx;' hidden='{{dataInfo.info.state!=2}}'>每日接单上限{{dataInfo.infos.thaskisopen}}次</text> -->
+          </view>
+          <view class='fr' style='color:#f5a92a' hidden='{{dataInfo.info.state!=1}}'>今日剩余{{dataInfo.infos.thagainisopensurplus}}次</view>
+          <!-- <view class='fr' style='color:#f5a92a' hidden='{{dataInfo.info.state!=2}}'>今日剩余{{dataInfo.infos.thaskisopensurplus}}次</view> -->
+        </view>
+      </view>
+      <view class='btnsecond'>
+        <button class="weui-btn mini-btn" data-types='2' bindtap='buygraphic' type="warn" size="mini" hidden="{{dataInfo.info.ishidden?true:(dataInfo.info.state!=1?true:false)}}">点此复诊</button>
+        <!-- <button class="weui-btn mini-btn" data-types='2' bindtap='buygraphic' type="warn" size="mini" hidden="{{dataInfo.info.ishidden?true:(dataInfo.info.state!=2?true:false)}}">点此咨询</button> -->
+      </view>
+    </view>
+  </view>
+  <view class='p-content'>
+    <view class='tuwen-content'>
+      <view class='tuwen'><text decode='{{true}}'>・&nbsp;擅长&nbsp;・</text></view>
+      <view class='tuwen-pay'>
+        <view class='skill' wx:for='{{dataInfo.infos.skillname}}' wx:for-item='item' wx:key='item'>{{item}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='p-content'>
+    <view class='tuwen-content'>
+      <view class='tuwen'><text decode='{{true}}'>・&nbsp;简介&nbsp;・</text></view>
+      <view class='tuwen-pay'>
+      <block>
+        <text>{{dataInfo.infos.intro == null || dataInfo.infos.intro == '' ? "无" : dataInfo.infos.intro }}</text>
+
+      </block>
+      </view>
+    </view>
+  </view>
+</view>
+</template>

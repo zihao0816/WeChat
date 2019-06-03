@@ -1,0 +1,190 @@
+<!--pages/im/index.wxml-->
+<import src="../../template/doctordetails.wxml" />
+<import src="../../template/mymedicalrecords.wxml" />
+<view class='page'>
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbars b-color">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="view{{index}}" data-id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="{{isshows==1 && activeIndex==1?'largetop':'smalltop'}}" id='farther'>
+        <view hidden="{{activeIndex != 0}}">
+          <template is="doctordetails" data='{{dataInfo}}'></template>
+        </view>
+        <view style='position:relative' hidden="{{activeIndex != 1}}">
+          <view class="pages" style='background:#f1f0f5'>
+            <view style='top:{{topheight}}px' class="toast {{isshows==1 && activeIndex==1?'disblock':'disnone'}}" bindtap='write'>
+              <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">您还未填写问诊资料，请完善</view>
+                <view class="weui-cell__ft weui-cell__ftmnnn_in-access"></view>
+              </view>
+            </view>
+            <view class="weui-loadmorees" hidden='{{fyjz}}'>
+              <view class="weui-loading"></view>
+              <view class="weui-loadmore__tips">正在加载</view>
+            </view>
+            <view class='main' style='height:{{height}}px'>
+              <scroll-view scroll-y="true" style='height:100%' class="history" scroll-top='{{top}}' bindscrolltoupper="onReachBottomnext">
+                <block wx:for="{{newsList}}" wx:for-item='item' wx:for-index='indexs' wx:key>
+                  <!--此处为other  -->
+                  <view wx:if='{{item.senderId==toImMode.doctorId}}'>
+                    <view hidden='{{indexs!=0&&newsList[indexs].snedTime-newsList[indexs-1].snedTime<300000}}' style='text-align:center;margin-top:30rpx;'>
+                      <text style='font-size:24rpx;background:#000000;opacity:.1;color:#ffffff;border-radius:8rpx;padding:0 8rpx;'>{{item.newdate}}</text>
+                    </view>
+                    <!-- 结束服务信息 -->
+                    <view wx:if='{{item.businessType == "EndOrder"}}' style='text-align:center;color:#c1c1c1;font-size:28rpx;'>
+                      <text>{{item.message.body}}</text>
+                    </view>
+                    <!-- 普通文本信息 -->
+                    <view wx:elif="{{item.message.type=='text' && (item.businessType == null || item.businessType == '') && item.message.body != null && item.message.body !=''}}" class='other-record' style='margin:32rpx 0 0 40rpx;'>
+                      <image class='other-head-img' src='{{item.doctorface}}'></image>
+                      <view class='other-record-content-triangle'></view>
+                      <view class='other-record-content'>{{item.message.body}}</view>
+                    </view>
+                    <!-- 普通语音信息 -->
+                    <view wx:elif='{{item.message.type=="voice" && (item.businessType == null || item.businessType == "") && item.message.body != null && item.message.body != ""}}' class='other-record' style='margin:32rpx 0 0 40rpx;'>
+                      <image class='other-head-img' src='{{item.doctorface}}'></image>
+                      <view class='other-record-content-triangle'></view>
+                      <view class='other-record-content' data-voice='{{item.message.body}}' data-num='{{item.message.duration}}' data-status='1' bindtap='playvoice' data-index='{{indexs}}'>
+                        <image src='{{ownsrc[indexs]==null?othersrcdefault:ownsrc[indexs]}}' style='width:32rpx;height:32rpx;margin-right:10rpx;'></image>
+                        {{item.message.duration}}
+                      </view>
+                    </view>
+                    <!-- 电话录音信息 -->
+                    <view wx:elif='{{item.message.type=="voice" && item.businessType == "callPhoneRecords" && item.message.body != null && item.message.body != ""}}' class='other-record' style='margin:32rpx 0 0 40rpx;'>
+                      <image class='other-head-img' src='{{item.doctorface}}'></image>
+                      <view class='other-record-content-triangle'></view>
+                      <view class='other-record-contents'>
+                        <view style='padding:30rpx;'>通话时长{{item.message.duration}}分钟</view>
+                        <view data-voice='{{item.message.body}}' bindtap='playvoice' style='text-align:center;border-top:2rpx solid #F1F0F5;padding:16rpx 0;color:#D74326;'>播放录音</view>
+                      </view>
+                    </view>
+                    <!-- 图片信息 -->
+                    <view wx:elif='{{item.message.type=="picture"}}' class='other-record' style='margin:32rpx 0 0 40rpx;'>
+                      <image class='other-head-img' src='{{item.doctorface}}'></image>
+                      <view data-imgUrl='{{item.message.body}}' bindtap='largeImg'>
+                        <image mode='widthFix' style='width:250rpx;vertical-align:middle;border-radius:10rpx;margin:10rpx 0 0 16rpx;' src='{{item.message.body}}'></image>
+                      </view>
+                    </view>
+                    <!-- 推送文本信息 -->
+                    <view wx:elif='{{item.message.type=="text" && item.businessType=="doctor_prescription"}}' class='other-record' style='margin:32rpx 0 0 40rpx;'>
+                      <image class='other-head-img' src='{{item.doctorface}}'></image>
+                      <view class='other-record-content-triangle'></view>
+                      <view class='other-record-contents' data-id='{{item.businessId}}'>
+                        <view style='padding:30rpx;'>{{item.message.body}}</view>
+                        <view data-orderid='{{item.businessId}}' data-doctorid='{{toImMode.doctorId}}' style='text-align:center;border-top:2rpx solid #F1F0F5;padding:16rpx 0;color:#D74326;' bindtap='seemedicine'>立即取药</view>
+                      </view>
+                    </view>
+                  </view>
+                  <!--此处为结尾  -->
+                  <!--此处为own  -->
+                  <view wx:else>
+                    <view hidden='{{indexs!=0&&newsList[indexs].snedTime-newsList[indexs-1].snedTime<300000}}' style='text-align:center;margin-top:30rpx;'>
+                      <text style='font-size:24rpx;background:#000000;opacity:.1;color:#ffffff;border-radius:8rpx;padding:0 8rpx;'>{{item.newdate}}</text>
+                    </view>
+                    <!-- 结束服务信息 -->
+                    <view wx:if='{{item.businessType == "EndOrder"}}' style='text-align:center;color:#c1c1c1;font-size:28rpx;'>
+                      <text>{{item.message.body}}</text>
+                    </view>
+                    <!-- 普通文本信息 -->
+                    <view wx:elif='{{item.message.type=="text" && (item.businessType == null ||item.businessType == "")}}' class='own-record' style='margin:32rpx 40rpx 0 0;'>
+                      <view hidden='{{item.messageStatus!="1"}}' class="weui-loading" style='margin:30rpx 5px 0;'></view>
+                      <view class='own-record-content'>{{item.message.body}}</view>
+                      <view class='own-record-content-triangle'></view>
+                      <image class='own-head-img' src='{{item.patientface}}'></image>
+                    </view>
+                    <!-- 普通语音信息 -->
+                    <view wx:elif="{{item.message.type=='voice' && item.businessType != 'callPhoneRecords' && item.message.body!=null && item.message.body !=''}}" class='own-record' style='margin:32rpx 40rpx 0 0;'>
+                      <view hidden='{{item.messageStatus!="1"}}' class="weui-loading" style='margin:30rpx 5px 0;'></view>
+                      <view class='own-record-content' data-voice='{{item.message.body}}' data-num='{{item.message.duration}}' data-status='2' bindtap='playvoice' data-index='{{indexs}}'>
+                        {{item.message.duration}}
+                        <image src='{{ownsrc[indexs]==null?ownsrcdefault:ownsrc[indexs]}}' style='width:32rpx;height:32rpx;margin-left:10rpx;'></image>
+                      </view>
+                      <view class='own-record-content-triangle'></view>
+                      <image class='own-head-img' src='{{item.patientface}}'></image>
+                    </view>
+                    <!-- 图片信息 -->
+                    <view wx:elif='{{item.message.type=="picture"}}' class='own-record' style='margin:32rpx 40rpx 0 0;'>
+                      <view hidden='{{item.messageStatus!="1"}}' class="weui-loading" style='margin:30rpx 5px 0;'></view>
+                      <view data-imgUrl='{{item.message.body}}' bindtap='largeImg'>
+                        <image mode='widthFix' style='width:250rpx;vertical-align:middle;border-radius:10rpx;margin:10rpx 16rpx 0 0;' src='{{item.message.body}}'></image>
+                      </view>
+                      <image class='own-head-img' src='{{item.patientface}}'></image>
+                    </view>
+                    <!-- 推送文本信息 -->
+                    <view wx:elif='{{item.message.type=="text" && item.businessType=="patient_profile"}}' class='own-record' style='margin:32rpx 40rpx 0 0;'>
+                      <view class='other-record-contents' data-id='{{item.businessId}}'>
+                        <view style='padding:30rpx;'>{{item.message.body}}</view>
+                        <view wx:if='{{toImMode.isdialectics == "2"}}' data-orderid='{{item.businessId}}' data-doctorid='{{toImMode.doctorId}}' style='text-align:center;border-top:2rpx solid #F1F0F5;padding:16rpx 0;color:#D74326;' bindtap='uploadone'>编辑问诊资料</view>
+                        <view wx:elif='{{toImMode.isdialectics == "1"}}' data-orderid='{{item.businessId}}' data-doctorid='{{toImMode.doctorId}}' style='text-align:center;border-top:2rpx solid #F1F0F5;padding:16rpx 0;color:#D74326;' bindtap='uploadones'>查看问诊资料</view>
+                      </view>
+                      <view class='own-record-content-triangles'></view>
+                      <image class='own-head-img' src='{{item.patientface}}'></image>
+                    </view>
+                  </view>
+                  <!-- own结尾  -->
+                </block>
+              </scroll-view>
+            </view>
+            <view id='im-bottom' class="im-bottom {{state?'open':(isiphone?'close':'closes')}}" wx:if='{{disshow == false}}'>
+              <view class='im-left' style='height:{{isiphone?138:98}}rpx'>
+                <view class='img-left'>
+                  <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/ToolViewInputVoice@3x.png' hidden='{{keyboard}}' bindtap='switchInputType'></image>
+                  <image src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/ToolViewKeyboard@3x.png' hidden='{{!keyboard}}' bindtap='switchInputType'></image>
+                </view>
+                <!-- 注释 -->
+                <!-- <input cursor-spacing ='14' bindconfirm='sendMsg' class='im-center' confirm-type="send" type='text'></input> -->
+                <!-- <view class='im-right' bindtap='toggle'>
+                  <image style='width:100%;height:100%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/TypeSelectorBtn_Black@3x.png'></image>
+                </view> -->
+                <!-- 注释 -->
+                <input cursor-spacing='14' bindinput='saveMsg' bindconfirm='send' class='im-center' hidden='{{keyboard}}' value='{{value}}' confirm-type="send" confirm-hold='false' type='text'></input>
+                <button class='im-centers' bindtouchmove="handletouchmove" bindtouchstart="touchdown" hidden='{{!keyboard}}' bindtouchend="touchup">按住 说话</button>
+                <view class='im-right' bindtap='toggle'>
+                  <image style='width:100%;height:100%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/TypeSelectorBtn_Black@3x.png'></image>
+                </view>
+                <!-- <view class='im-right' style='top:26rpx;' bindtap='send'>发送</view> -->
+              </view>
+              <view class='addtext'>
+                <view bindtap='seeImg'>
+                  <image style='width:80rpx;height:80rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/tupiantubiaop@3x.png'></image>
+                  <view>图片</view>
+                </view>
+                <view style='margin-left:110rpx;' bindtap='seemedicines'>
+                  <image style='width:80rpx;height:80rpx;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/im/bianzhengkaifang@3x.png'></image>
+                  <view>查看药方</view>
+                </view>
+              </view>
+            </view>
+            <view id='im-bottom' class='im-bottom' wx:elif='{{disshow == true }}'>
+              <view style='background-color:#ffffff;'>
+                <view style='padding:18rpx 0;text-align:center;color:#C1C1C1;font-size:32rpx;'>{{types}}</view>
+                <view class='clearfix' style='padding:24rpx 40rpx;border-top:2rpx solid #F1F0F5;' wx:for='{{typeList}}' wx:key>
+                  <view style='display:inline-block;'>
+                    <view>{{item.text}}</view>
+                    <view style='font-size:24rpx'>{{item.introduce}}</view>
+                  </view>
+                  <view class='fr' style='display:inline-block;margin-top:6rpx;' data-did='{{toImMode.doctorId}}' data-state='{{item.status}}' bindtap='alldoctor'>
+                    <button class='buttom'>{{item.buttom}}</button>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view hidden="{{activeIndex != 2}}">
+          <template is='mymedicalrecords' data="{{medicalrecordInfo}}"></template>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='voice' hidden='{{!show}}'>
+    <image src='{{imgUrl}}'></image>
+    <view style='background:{{cancelsendingvocie?"red":"black"}}'>手指上划，取消发送</view>
+  </view>
+</view>

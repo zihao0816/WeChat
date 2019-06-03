@@ -1,0 +1,130 @@
+<template name="prescriptionorderdetails">
+<view class='page'>
+  <view class='un-top'>
+    <image style='width:100%;margin:20rpx 0 10rpx;' class='topimg' mode='widthFix' src='../../imgs/dengdaizhifu@3x.png'></image>
+  </view>
+  <view class='un-orders'>
+    <view class='clearfix orderid'>
+      <text class='fl'>收货人：<text>张展</text></text>
+      <text class='fr'>13454532676</text>
+    </view>
+    <view class='clearfix orderid'>
+      <text>收货地址：</text>
+      <text>地方沙发斯蒂芬是费大幅度发</text>
+    </view>
+    <view class='clearfix' style='padding:30rpx;'>
+      <text class='fl'>配送方式：</text>
+      <text class='fr' decode='{{true}}'>顺丰快递&ensp;&ensp;到货付款</text>
+    </view>
+  </view>
+  <view class='un-orders'>
+    <view class='clearfix orderid'>
+      <text class='fl'>医生信息</text>
+    </view>
+    <view class='clearfix orderid'>
+      <view class='fl'>
+        <image style='width:110rpx;height:110rpx;border-radius:8rpx;' src='../../imgs/img.jpg'></image>
+      </view>
+      <view class='fl' style='margin-left:20rpx;'>
+        <view style='margin-bottom:30rpx;'><text>张三</text><image style='width:100rpx;margin-left:20rpx;' mode='widthFix' src='../../imgs/yirenzhen@3x.png'></image></view>
+        <text decode='{{true}}'><text>主任医生</text>&ensp;&ensp;<text>北京京顺中医堂</text></text>
+      </view>
+    </view>
+    <view style='padding:30rpx;'>
+      <view>医生辨证</view>
+      <text>水电费水电费水电费</text>
+    </view>
+  </view>
+  <view class='un-orders' style='padding:30rpx 30rpx 0;'>
+    <view class='clearfix' style='padding-bottom:30rpx;'>
+      <text class='fl'>药房</text>
+      <text class='fr'>北京京顺医院</text>
+    </view>
+    <view class='clearfix' style='padding-bottom:30rpx;'>
+      <text class='fl'>药态</text>
+      <text class='fr'>北京京顺医院</text>
+    </view>
+  </view>
+  <view class='un-orders' style='padding:30rpx;'>
+    <view style='border-bottom:1rpx dashed #dfdfdf'>
+      <view style='margin-bottom:20rpx;'>R:</view>
+      <view style='padding-bottom:20rpx;'>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+        <text style='margin-right:50rpx;' decode='{{true}}'>当归&ensp;20/克</text>
+      </view>
+    </view>
+    <view style='padding-top:20rpx;'>
+      <view style='padding-bottom:30rpx;'>
+        <view style='padding-bottom:16rpx;'>用药说明</view>
+        <view>共<text>27</text>剂，每日<text>2</text>剂，每剂分<text>1</text>次服用</view>
+      </view>
+      <view style='padding-bottom:30rpx;'>
+        <view style='padding-bottom:16rpx;'>医嘱</view>
+        <view>的是的冯绍峰</view>
+      </view>
+      <view>
+        <view style='padding-bottom:16rpx;'>用药禁忌</view>
+        <view>水电费</view>
+      </view>
+    </view>
+  </view>
+  <view class='un-orders'>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">药方总价</view>
+        <view class="weui-cell__ft">￥100.00</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <navigator url="../my/mycoupons" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd"><text style='color:#ffffff;background-color:#d74326'>减</text>优惠券</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">-￥10.00</view>
+      </navigator>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">实付款</view>
+        <view class="weui-cell__ft">￥90.00</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">订单号</view>
+        <view class="weui-cell__ft">1233543232334</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">下单时间</view>
+        <view class="weui-cell__ft">2018/07/09 13:23</view>
+      </view>
+    </view>
+    <view class="weui-celles weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">支付时间</view>
+        <view class="weui-cell__ft">2018/07/09 13:33</view>
+      </view>
+    </view>
+  </view>
+  <view class='paymoney clearfix' style='height:112rpx;'>
+    <view class='fl' bindtap='contactService' style='margin:10rpx 0rpx 10rpx 30rpx;padding-right:30rpx;border-right:1rpx solid #dfdfdf;'>
+      <image style='width:40rpx;' mode='widthFix' src='../../imgs/kf@3x.png'></image>
+      <view style='font-size:24rpx;'>客服</view>
+    </view>
+    <view class='fl' style='margin:10rpx 30rpx;'>
+      <view style='font-size:24rpx;'>实付：</view>
+      <view><text>￥<text>100.00</text></text>元</view>
+    </view>
+    <view class='fr' style='height:100%;'>
+      <button class="weui-btn" type="primary" style='line-height:112rpx;height:100%;background-color:#d74326;color:#ffffff;border-radius:0;'>立即支付</button>
+    </view>
+  </view>
+</view>
+</template>

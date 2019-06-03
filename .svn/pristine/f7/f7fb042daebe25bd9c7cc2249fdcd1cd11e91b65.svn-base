@@ -1,0 +1,12 @@
+/* pages/my/couponsList.wxss */
+.page{
+  color: #A3A3A3;
+}
+.c-content{
+  background: url('https://service.51bjhzy.com/api/StaticFile/weChatImage/yhq@3x.png') no-repeat;
+  background-size: 100% 100%;
+  margin: 32rpx 40rpx;
+}
+.f-color{
+  color: #A3A3A3;
+}

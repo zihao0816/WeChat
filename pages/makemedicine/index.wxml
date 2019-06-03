@@ -1,0 +1,3 @@
+<!--pages/makemedicine/index.wxml-->
+<import src="../../template/makemedicine.wxml"/>
+<template is='makemedicine' data='{{noPay}}'></template>

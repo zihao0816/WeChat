@@ -1,0 +1,24 @@
+page,.page{
+  background-color: #f1f0f5;
+  width: 100%;
+  font-size: 30rpx;
+}
+.un-orders{
+  background-color: #ffffff;
+  margin-bottom: 12rpx;
+}
+.orderid{
+  padding: 30rpx;
+  border-bottom: 1rpx solid #dfdfdf;
+}
+.paymoney{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 6rpx 6rpx 6rpx 6rpx #dfdfdf; 
+}
+.weui-celles{
+  line-height: 2;
+}

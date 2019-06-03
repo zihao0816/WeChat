@@ -1,0 +1,131 @@
+<template name="purchasingservicedetails">
+  <view class='page'>
+    <view class='pu-top'>
+      <view class='titleone'>北京好中医承诺</view>
+      <view class='titletwo'>将由医生本人为您提供问诊服务</view>
+    </view>
+    <view class='doc-msg' style='display:flex'>
+      <view style='width:100rpx;height:100rpx;border-radius:8rpx;'>
+        <image style='width:100%;height:100%;border-radius:8rpx;' src='{{newservice.doctorFace}}'></image>
+      </view>
+      <view style="margin-left:20rpx;flex:1;width:80%;">
+        <view style='font-size:32rpx;'>{{newservice.doctorname}}
+          <image style='width:100rpx;margin-left:20rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yirenzhen@3x.png'></image>
+        </view>
+        <view style='font-size:28rpx;margin-top:12rpx;display:flex;'>
+          <text style='padding-right:40rpx;'>{{newservice.duties}}</text>
+          <text style='flex:1;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;'>{{newservice.hospitaname}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="doc-type clearfix {{newservice.types==1?'padding-item':'padding-items'}}" hidden='{{newservice.types==1}}'>
+      <view class='fl' style='width:100rpx;'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/sfzdhgt@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>十分钟&emsp;电话沟通</text>
+        </view>
+      </view>
+      <view class="fl {{newservice.types==1?'margin-iteme':'margin-item'}}" style='width:100rpx;'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zytwdh@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;自由&emsp;图文对话</text>
+        </view>
+      </view>
+      <view class="fl {{newservice.types==1?'margin-iteme':'margin-item'}}" style='width:100rpx;' hidden='{{newservice.state==2}}'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yjkf@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;严谨&emsp;辨证开方</text>
+        </view>
+      </view>
+      <view class="fl {{newservice.types==1?'margin-iteme':'margin-items'}}" style='width:100rpx;' hidden='{{newservice.state==2}}'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zdtljy@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;制定&emsp;调理建议</text>
+        </view>
+      </view>
+    </view>
+    <view class="doc-type clearfix {{newservice.types==1?'padding-item':'padding-items'}}" hidden='{{newservice.types==2}}'>
+      <view class="fl" style='width:100rpx;'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zytwdh@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;自由&emsp;图文对话</text>
+        </view>
+      </view>
+      <view class="fl {{newservice.types==1?'margin-iteme':'margin-item'}}" style='width:100rpx;' hidden='{{newservice.state==2}}'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/yjkf@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;严谨&emsp;辨证开方</text>
+        </view>
+      </view>
+      <view class="fl {{newservice.types==1?'margin-iteme':'margin-items'}}" style='width:100rpx;' hidden='{{newservice.state==2}}'>
+        <image style='width:100%;height:100rpx;border-radius:50%;' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/zdtljy@3x.png'></image>
+        <view style='font-size:24rpx;'>
+          <text decode='{{true}}'>&emsp;制定&emsp;调理建议</text>
+        </view>
+      </view>
+    </view>
+    <view class='pay-type'>
+      <view class="weui-celle weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">{{newservice.text}}</view>
+          <view class="weui-cell__ft">￥{{newservice.price}}</view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title">
+        <view bindtap='mycoupons' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">优惠券</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{newservice.saleprice==null||newservice.saleprice=="0"?"暂无优惠":"-￥"+newservice.saleprice}}</view>
+        </view>
+      </view>
+      <view class="weui-celle weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">支付方式</view>
+          <view class="weui-cell__ft">微信支付</view>
+        </view>
+      </view>
+    </view>
+    <view class='prompt'>
+      <view class='tuwen' style='border-bottom:1rpx solid #dfdfdf'>
+        <text decode='{{true}}'>・&nbsp;温馨提示&nbsp;・</text>
+      </view>
+      <view style='padding:32rpx 40rpx;'>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・急重病不适宜在线问诊。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・客服会尽快通知医生与您联系。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・医生将与您通过图片、文字进行交流。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・医生将根据患者实际情况辨证开方、给出调理建议。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・购买成功后请如实填写问诊单并发送给医生，医生将按照接到问诊单先后顺序回复。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・问诊过程中请避免向医生咨询非患者本人的问题，否则医生有权提前结束咨询。</text>
+        </view>
+        <view class='mar-bottom' style="display:flex">
+          <text style="flex:1">・本服务有效期：72小时内有效。</text>
+        </view>
+        <view>・购买即同意《用户协议》。</view>
+      </view>
+    </view>
+    <view class='paymoney clearfix' style='height:112rpx;'>
+      <view bindtap='contactService' class='fl' style='margin:10rpx 0rpx 10rpx 30rpx;padding-right:30rpx;border-right:1rpx solid #dfdfdf;'>
+        <image style='width:40rpx;' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/buy/kf@3x.png'></image>
+        <view style='font-size:24rpx;'>客服</view>
+      </view>
+      <view class='fl' style='margin:10rpx 30rpx;'>
+        <view style='font-size:24rpx;'>实付：</view>
+        <view>
+          <text>￥<text>{{newservice.actualprice==null?newservice.price:newservice.actualprice}}</text></text>元</view>
+      </view>
+      <view class='fr' style='height:100%;' bindtap='paid'>
+        <button class="weui-btn" type="primary" disabled='{{disabled}}' style='line-height:112rpx;height:100%;background-color:#d74326;color:#ffffff;border-radius:0;'>立即支付</button>
+      </view>
+    </view>
+  </view>
+</template>

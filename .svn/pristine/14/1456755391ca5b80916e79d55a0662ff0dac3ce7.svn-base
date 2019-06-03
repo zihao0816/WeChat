@@ -1,0 +1,11 @@
+<!--pages/problemfeedback/index.wxml-->
+<view class='page'>
+  <view style='margin-top:12rpx;background-color:#ffffff;'>
+    <view style='padding:32rpx 40rpx 0;margin-bottom:44rpx;'>
+      <textarea bindinput="getText" style='border:2rpx solid #F1F0F5;height:400rpx; padding:20rpx 30rpx;width:90%;' placeholder='请填写您的问题' maxlength='1000'></textarea>
+    </view> 
+    <view style='padding:0 40rpx 82rpx;'>
+      <button style='width:100%;background-color:#D74326;color:#ffffff;border-radius:0;height:80rpx;line-height:80rpx;' bindtap='send'>发送</button>
+    </view>
+  </view>
+</view>

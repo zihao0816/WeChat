@@ -1,0 +1,15 @@
+/* pages/upload/three.wxss */
+.page .topic{
+  margin: 12rpx 0 0 0;
+  padding-bottom: 80rpx;
+}
+.weui-celss{
+  padding:10px 15px;
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:flex;
+  flex: 0 0 50%;
+  -webkit-box-align:center;
+  -webkit-align-items:center;
+  align-items:center;
+}

@@ -1,0 +1,101 @@
+// pages/upload/two.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var upmod = wx.getStorageSync("upmod");
+    wx.removeStorageSync("upmod")
+    this.setData({
+      upmod: upmod
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+  symptomChange: function(e) {
+    var this_ = this;
+    this_.data.upmod.symptom = e.detail.value;
+    this.setData(this_.data);
+  },
+
+  allergichistoryChange: function(e) {
+    var this_ = this;
+    this_.data.upmod.allergichistory = e.detail.value;
+    this.setData(this_.data);
+  },
+  pastcaseChange: function(e) {
+    var this_ = this;
+    this_.data.upmod.pastcase = e.detail.value;
+    this.setData(this_.data);
+  },
+  nexts: function() {
+    if (this.data.upmod.symptom == null || this.data.upmod.symptom.trim() == "") {
+      wx.showToast({
+        title: "请填写病症自述",
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.setStorageSync("upmod", this.data.upmod);
+      wx.navigateTo({
+        url: './three',
+      })
+    }
+
+  }
+})

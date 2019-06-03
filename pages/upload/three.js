@@ -1,0 +1,177 @@
+// pages/upload/three.js
+var wxRequest = require('../../utils/wxRequest.js');
+var util = require('../../utils/util.js');
+var datasave = require('../../common/datasave.js');
+const app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var upmod = wx.getStorageSync("information");
+    console.log(upmod)
+    if (upmod.reorderinquiryquestion == null || upmod.reorderinquiryquestion.length < 1) {
+      this.getvisits(this);
+    }else{
+      var reorderinquiryquestion = upmod.reorderinquiryquestion
+      for (var i = 0; i < reorderinquiryquestion.length; i++) {
+        if (reorderinquiryquestion[i].singleselection == '1') {
+          reorderinquiryquestion[i].singleselectiontext = '（单选）'
+        } else {
+          reorderinquiryquestion[i].singleselectiontext = '（多选）'
+        }
+      }
+    }
+    wx.removeStorageSync("information");
+    this.setData({
+      upmod: upmod,
+      oid: options.orderid,
+      did: options.doctorid,
+      types: options.types
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+
+  getvisits: function(_this) {
+    wxRequest.requests('Inquiry/getConsultationForm', null, function(res) {
+      console.log(res)
+      for (var i = 0; i < res.parameters.length; i++) {
+        if (res.parameters[i].singleselection == '1') {
+          res.parameters[i].singleselectiontext = '（单选）'
+        } else {
+          res.parameters[i].singleselectiontext = '（多选）'
+        }
+      }
+      _this.data.upmod.reorderinquiryquestion = res.parameters;
+      _this.setData(_this.data)
+    })
+  },
+
+  checkboxChange: function(e) {
+    var values = e.detail.value;
+    for (var i = 0; i < this.data.upmod.reorderinquiryquestion.length; i++) {
+      if (this.data.upmod.reorderinquiryquestion[i].id == e.target.dataset.vas) {
+        var checkitems = this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions;
+        for (var j = 0; j < checkitems.length; j++) {
+          checkitems[j].ischecked = '2';
+          for (var m = 0; m < values.length; m++) {
+            if (values[m] == (this.data.upmod.reorderinquiryquestion[i].id + "-" + checkitems[j].id)) {
+              checkitems[j].ischecked = '1';
+              break;
+            }
+          }
+        }
+      }
+    }
+    this.setData(this.data);
+  },
+  radioChange: function(e) {
+    var values = e.detail.value;
+    for (var i = 0; i < this.data.upmod.reorderinquiryquestion.length; i++) {
+      if (this.data.upmod.reorderinquiryquestion[i].id == e.target.dataset.vas) {
+        for (var j = 0, len = this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions.length; j < len; ++j) {
+          this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions[j].ischecked = (values == (this.data.upmod.reorderinquiryquestion[i].id + "-" + this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions[j].id)) ? 1 : 2;
+        }
+      }
+    }
+    this.setData(this.data);
+  },
+
+  nexts: function () {
+    var _this = this;
+    var uniond = wx.getStorageSync('weixin');
+    for (var i = 0; i < this.data.upmod.reorderinquiryquestion.length; i++) {
+      if (this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions != null && this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions.length > 0) {
+        var isnull = true;
+        for (var j = 0; j < this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions.length; j++) {
+          if (this.data.upmod.reorderinquiryquestion[i].orderinquiryoptions[j].ischecked == '1') {
+            isnull = false;
+            break;
+          }
+        }
+        if (isnull) {
+          wx.showToast({
+            title: "请完善问诊单",
+            icon: 'none'
+          })
+          return;
+        }
+      }
+    }
+    wxRequest.requests('Inquiry/inquirySubmission',JSON.stringify({
+      orderid: _this.data.oid,
+      reorderinquiryquestion: _this.data.upmod.reorderinquiryquestion
+    }),function(res){
+      if(res.result == 0){
+        wx.setStorageSync("information", _this.data.upmod);
+        var newSendQueue = [];
+        var sendQue = wx.getStorageSync("sendQue");
+        sendQue = sendQue == null || sendQue.length == 0 ? [] : sendQue;
+        var newSendQueues = util.datas(uniond.id, _this.data.did, 'text', '我已上传问诊单', '1', "99999999-9999999", 'profileFinish', _this.data.oid);
+        datasave.insert(newSendQueues)
+        sendQue.push(newSendQueues)
+        wx.setStorageSync("sendQue", sendQue);
+        app.sendseven(_this.data.did);
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })
+  },
+})

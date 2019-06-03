@@ -1,0 +1,66 @@
+/* pages/user/user.wxss */
+
+.page {
+  font-size: 34rpx;
+}
+
+image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+radio {
+  transform: scale(0.5);
+}
+
+.page .user-form {
+  border-top: 2rpx solid #f1f0f5;
+}
+
+.page .title {
+  margin-top: 30rpx;
+  text-align: center;
+  color: #a9a9a9;
+}
+
+.weui-flex {
+  padding: 32rpx 40rpx;
+  border-bottom: 2rpx solid #f1f0f5;
+  background-color: #fff;
+  align-items: center;
+}
+
+.weui-flex__item {
+  text-indent: 10rpx;
+}
+
+.weui-flex__item .yan {
+  padding: 0 16rpx;
+}
+
+.next {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.next button {
+  width: 100%;
+  background-color: #d74326;
+  color: #fff;
+  border-radius: 0;
+}
+
+.place-holder{
+  color: #c1c1c1;
+  text-align: right;
+}
+.oldcolor{
+  color:#007AFF;
+}
+.newcolor{
+  color:#c1c1c1;
+}
+button::after{
+  border: none;
+}

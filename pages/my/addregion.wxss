@@ -1,0 +1,29 @@
+/* pages/my/addregion.wxss */
+.page .user-form{
+  margin-top: 12rpx;
+}
+.weui-flex{
+  padding: 32rpx 40rpx;
+  border-bottom: 1px solid #f1f0f5;
+  background-color: #ffffff;
+}
+.weui-flex__item{
+  text-indent: 10rpx;
+}
+.next{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.next button{
+  width: 100%;
+  background-color: #d74326;
+  color: #ffffff;
+  border-radius: 0;
+}
+.mar {
+  margin-right: 20rpx;
+}
+.kong {
+  padding-left: 10rpx;
+}

@@ -1,0 +1,281 @@
+// pages/my/newmyprofiletwo.js
+var wxRequest = require('../../utils/wxRequest.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    sexList: ['请选择性别', '男', '女'],
+    relation: ['请选择与您的关系', '本人', '父亲', '母亲', '妻子', '儿子', '女儿', '孙子', '孙女', '爷爷', '奶奶', '朋友', '同事', '亲戚'],
+    sexindex: 0,
+    reindex: 0
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var weixin = wx.getStorageSync('weixin');
+    var common = wx.getStorageSync('common');
+    console.log(weixin)
+    var _this = this;
+    weixin.newheadphoto = weixin.portrait != null && weixin.portrait != '' ? common.fastDfsUrl + weixin.portrait : (weixin.headphoto != null && weixin.headphoto != '' ? weixin.headphoto : 'https://service.51bjhzy.com/api/StaticFile/weChatImage/my/mrtx@3x.png');
+    if (weixin.relationship == null || weixin.relationship == '') {
+      weixin.relationship = 0;
+    } else {
+      for (var i = 0; i < _this.data.relation.length; i++) {
+        if (_this.data.relation[i] == weixin.relationship) {
+          weixin.relationship = i;
+        }
+      }
+    }
+    weixin.newbirthday = weixin.birthday.split('-');
+    this.setData({
+      weixin: weixin,
+      sexindex: weixin.sex,
+      reindex: weixin.relationship
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+
+  choosephoto: function() {
+    var _this = this;
+    wx.chooseImage({
+      success: function(res) {
+        console.log(res)
+        _this.uploadphoto(res.tempFilePaths);
+        _this.setData({
+          truephoto: res.tempFilePaths
+        })
+      },
+    })
+  },
+
+  uploadphoto: function(filepath) {
+    console.log(filepath)
+    var _this = this;
+    var weixin = wx.getStorageSync('weixin');
+    var common = wx.getStorageSync('common');
+    wx.uploadFile({
+      url: 'https://service.51bjhzy.com/api/FastDfs/uploadLocal',
+      filePath: filepath[0],
+      name: 'file',
+      header: {
+        "sessionID": weixin == null || weixin.sessionId == null ? "" : weixin.sessionId
+      },
+      success: function(res) {
+        var data = JSON.parse(res.data)
+        _this.data.weixin.newheadphoto = common.getLocal + data[0].fileUrl
+        _this.setData({
+          photoimg: data[0].fileUrl,
+          weixin: _this.data.weixin
+        })
+      },
+      fail: function(e) {
+        console.log(e)
+      },
+      complete: function(e) {
+        console.log(e)
+      }
+    })
+  },
+
+  inputchange: function(e) {
+    this.setData({
+      truename: e.detail.value
+    })
+  },
+
+  bindSexChange: function(e) {
+    this.setData({
+      sexindex: e.detail.value
+    })
+  },
+
+  inputcardchange: function(e) {
+    this.setData({
+      card: e.detail.value
+    })
+  },
+
+  bindRelationChange: function(e) {
+    this.setData({
+      reindex: e.detail.value
+    })
+  },
+
+  yearchange: function(e) {
+    this.data.weixin.newbirthday = this.data.weixin.newbirthday == null ? [] : this.data.weixin.newbirthday;
+    this.data.weixin.newbirthday[0] = e.detail.value;
+    this.setData(this.data)
+  },
+
+  monthchange: function(e) {
+    this.data.weixin.newbirthday = this.data.weixin.newbirthday == null ? [] : this.data.weixin.newbirthday;
+    this.data.weixin.newbirthday[1] = e.detail.value;
+    this.setData(this.data)
+  },
+
+  daychange: function(e) {
+    this.data.weixin.newbirthday = this.data.weixin.newbirthday == null ? [] : this.data.weixin.newbirthday;
+    this.data.weixin.newbirthday[2] = e.detail.value;
+    this.setData(this.data)
+  },
+
+  finish: function() {
+    var data = this.data;
+    var _this = this;
+    var toast = function(title) {
+      wx.showToast({
+        title: title,
+        icon: 'none'
+      })
+    }
+    if (data.weixin.patientname == "" && (data.truename == null || data.truename == "")) {
+      toast('请填写姓名')
+      return false;
+    }
+    if (data.sexindex == 0) {
+      toast('请填写性别')
+      return false;
+    }
+    if (data.reindex == 0) {
+      toast('请填写关系')
+      return false;
+    }
+    if ((data.weixin.idnumber == null || data.weixin.idnumber == '') && (data.card == null || data.card == '')) {
+      toast('请填写身份证号')
+      return false;
+    } else {
+      var cardreg = /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/;
+      var newcard = data.card == null || data.card == "" ? data.weixin.idnumber : data.card;
+      if (!cardreg.test(newcard)) {
+        toast('请填写正确的身份证号')
+        return false;
+      }
+    }
+    if ((data.weixin.birthday == null || data.weixin.birthday == '') && data.weixin.newbirthday[0] == '' || data.weixin.newbirthday[1] == '' || data.weixin.newbirthday[2] == '') {
+      toast('请填写正确的出生日期')
+      return false;
+    }
+    if (data.truephoto != null && data.truephoto != '') {
+      wx.uploadFile({
+        url: 'https://service.51bjhzy.com/api/FastDfs/upload',
+        filePath: data.truephoto[0],
+        name: 'file',
+        header: {
+          "sessionID": data.weixin == null || data.weixin.sessionId == null ? "" : data.weixin.sessionId
+        },
+        success: function(res) {
+          var img = JSON.parse(res.data);
+          _this.setData({
+            img: img
+          })
+          _this.finishs(data)
+        }
+      })
+    } else {
+      _this.finishs(data)
+    }
+
+  },
+
+  finishs: function(data) {
+    var newdata = {};
+    var common = wx.getStorageSync('common');
+    var _this = this;
+    if (data.photoimg == null || data.photoimg == '') {
+      newdata = {
+        patientname: data.truename == null || data.truename == '' ? data.weixin.patientname : data.truename,
+        id: data.weixin.id,
+        sex: data.sexindex,
+        birthday: data.weixin.newbirthday[0] == '' || data.weixin.newbirthday[1] == '' || data.weixin.newbirthday[2] == '' ? data.weixin.birthday : data.weixin.newbirthday[0] + '-' + data.weixin.newbirthday[1] + '-' + data.weixin.newbirthday[2],
+        relationship: data.relation[data.reindex]
+      }
+    } else {
+      if (data.weixin.portrait == null || data.weixin.portrait == '') {
+        newdata = {
+          id: data.weixin.id,
+          sex: data.sexindex,
+          portrait: _this.data.img[0].fileUrl,
+          patientname: data.truename == null || data.truename == '' ? data.weixin.patientname : data.truename,
+          birthday: data.weixin.newbirthday[0] == '' || data.weixin.newbirthday[1] == '' || data.weixin.newbirthday[2] == '' ? data.weixin.birthday : data.weixin.newbirthday[0] + '-' + data.weixin.newbirthday[1] + '-' + data.weixin.newbirthday[2],
+          relationship: data.relation[data.reindex]
+        }
+      } else {
+        newdata = {
+          id: data.weixin.id,
+          patientname: data.truename == null || data.truename == '' ? data.weixin.patientname : data.truename,
+          portrait: _this.data.img[0].fileUrl,
+          sex: data.sexindex,
+          birthday: data.weixin.newbirthday[0] == '' || data.weixin.newbirthday[1] == '' || data.weixin.newbirthday[2] == '' ? data.weixin.birthday : data.weixin.newbirthday[0] + '-' + data.weixin.newbirthday[1] + '-' + data.weixin.newbirthday[2],
+          relationship: data.relation[data.reindex],
+          oldportrait: data.weixin.portrait
+        }
+      }
+    }
+    wxRequest.requests('Personal/addpatient', JSON.stringify(newdata), function(res) {
+      data.weixin.sex = data.sexindex;
+      data.weixin.age = res.parameters;
+      data.weixin.patientname = data.truename == null || data.truename == '' ? data.weixin.patientname : data.truename;
+      data.weixin.birthday = data.weixin.newbirthday[0] == '' || data.weixin.newbirthday[1] == '' || data.weixin.newbirthday[2] == '' ? data.weixin.birthday : data.weixin.newbirthday[0] + '-' + data.weixin.newbirthday[1] + '-' + data.weixin.newbirthday[2],
+        data.weixin.relationship = data.relation[data.reindex];
+      data.weixin.portrait = data.photoimg == null || data.photoimg == '' ? data.weixin.portrait : _this.data.img[0].fileUrl;
+      data.weixin.newheadphoto = data.weixin.portrait != null && data.weixin.portrait != '' ? data.weixin.portrait : (data.weixin.headphoto != null && data.weixin.headphoto != '' ? data.weixin.headphoto : 'https://service.51bjhzy.com/api/StaticFile/weChatImage/my/mrtx@3x.png');
+      _this.setData(data)
+      wx.setStorageSync('weixin', _this.data.weixin);
+      wx.navigateBack({
+        delta: 1
+      })
+    })
+  }
+})

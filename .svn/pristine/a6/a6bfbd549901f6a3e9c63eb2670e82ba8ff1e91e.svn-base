@@ -1,0 +1,68 @@
+/* pages/user/order.wxss */
+page{
+  background-color: #f1f0f5
+}
+page,
+.page,
+.page__bd{
+  height: 100%;
+  font-size: 30rpx;
+}
+.page__bd{
+  padding-bottom: 0;
+}
+.b-color{
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+}
+.weui-tabs{
+  position: relative;
+}
+.weui-tab__content{
+  padding-top: 60px;
+  text-align: center;
+}
+.no-pay{
+  background-color: #ffffff;
+  padding: 32rpx 0;
+  margin-bottom: 12rpx;
+}
+.orderids{
+  padding: 0 40rpx 20rpx;
+  border-bottom: 2rpx solid #f1f0f5
+}
+.same{
+  padding-top: 32rpx;
+  margin: 0 40rpx;
+}
+.weui-navbar__slider{
+  background-color: #d74326;
+}
+.weui-navbar__item.weui-bar__item_on{
+  color: #d74326;
+}
+.payone,.pay{
+  margin-top: 12rpx;
+}
+.label-color{
+  color: #848484;
+}
+.label-colord{
+  color: #d74326
+}
+.between{
+  margin-left: -50rpx;
+}
+.paynone{
+  font-family: PingFang-SC-Regular;
+  font-size: 32rpx;
+  text-align: center;
+  padding-top:40%; 
+  color: #C1C1C1; 
+}
+.img{
+    width:380rpx;
+    height:376px;
+    padding-bottom: 20px;
+}

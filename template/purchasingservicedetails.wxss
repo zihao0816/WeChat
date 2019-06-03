@@ -1,0 +1,56 @@
+.page .pu-top{
+  background: url('https://service.51bjhzy.com/api/StaticFile/weChatImage/gmtwwzbj@3x.png') no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 12rpx;
+}
+.pu-top .titleone{
+  font-size: 44rpx;
+  padding-top: 38rpx;
+}
+.pu-top .titletwo{
+  margin-top: 10rpx;
+  padding-bottom: 30rpx;
+}
+.page .doc-msg{
+  padding: 32rpx 40rpx;
+  background: #ffffff;
+}
+.page .doc-type,.page .pay-type,.page .prompt{
+  background-color: #ffffff;
+  margin-top: 12rpx;
+}
+.prompt{
+  padding-bottom: 80rpx;
+}
+.padding-item{
+  padding: 32rpx 76rpx;
+}
+.padding-items{
+  padding: 32rpx 44rpx;
+}
+.margin-item{
+  margin-left: 88rpx;
+}
+.margin-items{
+  margin-left:86rpx;
+}
+.margin-iteme{
+  margin-left: 148rpx;
+}
+.mar-bottom{
+  margin-bottom: 10rpx;
+}
+.flist{
+  position: relative;
+}
+.dot{
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  padding-right: 30rpx;
+}
+.list{
+  margin-left: 30rpx;
+}

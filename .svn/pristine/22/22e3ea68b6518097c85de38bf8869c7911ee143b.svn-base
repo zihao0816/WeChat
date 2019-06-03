@@ -1,0 +1,24 @@
+/* pages/upload/two.wxss */
+.page .readme{
+  margin-top: 12rpx;
+}
+.add-patients{
+  padding: 32rpx 40rpx;
+}
+.add-patients view{
+  height: 104rpx;
+  background: #ffffff;
+}
+.readme .r-title{
+  background: #ffffff;
+  padding: 32rpx 40rpx;
+  margin-bottom: 2rpx;
+}
+.readme .r-text{
+  background: #ffffff;
+  padding: 32rpx 40rpx;
+}
+.details{
+  margin-top: 12rpx;
+  background: #ffffff;
+}

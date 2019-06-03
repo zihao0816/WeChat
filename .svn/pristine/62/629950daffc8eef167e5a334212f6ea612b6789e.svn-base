@@ -1,0 +1,31 @@
+page,.page{
+  background-color: #f1f0f5;
+  width: 100%;
+  font-size: 30rpx;
+}
+.un-top{
+  padding: 32rpx 40rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+}
+.un-order{
+  width: 100%;
+  background-color: #ffffff;
+  margin-bottom: 20rpx;
+}
+.orderid{
+  padding: 30rpx;
+  border-bottom: 1px solid #dfdfdf;
+}
+.paymoney{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 6rpx 6rpx 6rpx 6rpx #dfdfdf; 
+}
+.weui-celle{
+  line-height: 2;
+  border-bottom: 1rpx solid #dfdfdf;
+}

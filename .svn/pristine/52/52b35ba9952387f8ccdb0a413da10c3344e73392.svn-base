@@ -1,0 +1,39 @@
+/**app.wxss**/
+@import 'weui.wxss';
+@import "/template/doctordetails.wxss";
+@import "/template/physicianorderdetails.wxss";
+@import "/template/prescriptionorderdetails.wxss";
+@import "/template/purchasingservicedetails.wxss";
+@import "/pages/upload/one.wxss";
+@import "/template/mymedicalrecords";
+@import "/template/makemedicine.wxss";
+@import "/Component/nyz_area_picker/nyz_area_picker.wxss";
+
+page{
+  background-color: #f1f0f5;
+  font-size: 30rpx;
+  position: relative
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.clearfix:after{
+   content:""; 
+   display: block; 
+   clear:both; 
+}
+.smallwidth{
+  width: 66%;
+}

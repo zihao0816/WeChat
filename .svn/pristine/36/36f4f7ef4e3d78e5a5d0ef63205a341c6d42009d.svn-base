@@ -1,0 +1,36 @@
+<!-- template/mymedicalrecords.wxml -->
+<template name="mymedicalrecords">
+<view class='pages'>
+  <view>
+  <view  class="paynone" wx:if='{{medicalrecordInfo == null || medicalrecordInfo == ""}}'>
+    <image class='img' mode='widthFix' src='https://service.51bjhzy.com/api/StaticFile/weChatImage/wnr@3x.png'></image>
+    <view><text>暂时没有内容呀~</text></view>
+  </view>
+    <block wx:for="{{medicalrecordInfo}}" wx:for-item="item" wx:key="item">
+      <view class='p-medical'>
+        <view class='m-top clearfix marbottom' style='padding:0 40rpx;'>
+          <image class='fl imgUrl' src='{{item.doctorheadphoto}}'></image>
+          <view class='fl' style='margin-left:30rpx;width:76%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;'>
+            <text style='display:block;margin-bottom:20rpx;'>{{item.doctorname}}</text>
+            <text decode='{{true}}' style='color:#818181;font-size:28rpx;'>{{item.dutiesname}}&ensp;{{item.hospitaname}}</text>
+          </view>
+        </view>
+        <view class='m-content' style='padding:0 40rpx;'>
+          <view class='clearfix marbottom'>
+            <text class='fl' style='color:#818181;'>问诊时间</text>
+            <text class='fr'>{{item.updatetime}}</text>
+          </view>
+          <view class='clearfix marbottom'>
+            <text class='fl' style='color:#818181;'>问诊方式</text>
+            <text class='fr'>{{item.serviceidtext}}</text>
+          </view>
+        </view> 
+        <view class='clearfix' style='padding:20rpx 0 0;border-top:2rpx solid #dfdfdf;color:#d74326;font-size:32rpx;'>
+          <view class='fl' data-oid='{{item.id}}' bindtap='askdetails' style='width:50%;text-align:center;border-right:2rpx solid #dfdfdf'>查看问诊资料</view>
+          <view class='fl' data-oid='{{item.id}}' bindtap='medical' style='width:49%;text-align:center'>查看病历详情</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+</template>

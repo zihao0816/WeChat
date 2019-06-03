@@ -1,0 +1,26 @@
+<!--pages/my/newmyprofile.wxml-->
+<view class='pages'>
+  <view class='user-img'>
+    <image style='width:180rpx;' mode='widthFix' src='{{user.headphoto}}'></image>
+    <view>{{user.patientname}}</view>
+  </view>
+  <view class='page__bd page__bd_spacing user-form'>
+    <view class='weui-flex'>
+      <label for='tel'><text decode='{{true}}'>手&emsp;机</text></label>
+      <view class='weui-flex__item'>
+        <input type='number' id='tel' placeholder-class="place-holder" data-inputname="phonenum" bindinput='inputchange' placeholder='请输入您的手机号码' />
+      </view>
+    </view>
+    <view class='weui-flex'>
+      <text decode='{{true}}'>验证码</text>
+      <view class='weui-flex__item'>
+        <input type='number' placeholder-class="place-holder" data-inputname="yancode" bindinput='inputchange' placeholder='四位短信验证码' />
+      </view>
+      <view class='weui-flex__item'>
+        <button class='fr' style='background:none;font-size:30rpx;padding:0;' bindtap='yancode' id="getauth">{{getauthtext}}</button>
+      </view>
+    </view>
+    <view style='font-size:24rpx;margin:80rpx 40rpx 32rpx;'>绑定即同意<text style='color:#D74326;'>《用户注册协议》</text></view>
+    <view style='margin:0 40rpx;'><button style='color:#ffffff;background:#D74326;'>完成</button></view>
+  </view>
+</view>
